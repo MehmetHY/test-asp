@@ -1,6 +1,7 @@
 ﻿using TodoModels.Models;
+using DbAccess.Repo.Interfaces;
 
-namespace DbAccess.Repo.Interfaces
+namespace TodoModels.Repositories
 {
     public interface ICategoryRepository : IRepository<CategoryModel>
     {

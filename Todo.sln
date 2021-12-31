@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbAccess", "DbAccess\DbAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoModels", "TodoModels\TodoModels.csproj", "{3B611EF4-125D-4A4A-AFFB-49AEB57D5077}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoRepo", "TodoRepo\TodoRepo.csproj", "{6CC9E050-D1B4-470E-9916-EDE41645F72C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3B611EF4-125D-4A4A-AFFB-49AEB57D5077}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B611EF4-125D-4A4A-AFFB-49AEB57D5077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B611EF4-125D-4A4A-AFFB-49AEB57D5077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC9E050-D1B4-470E-9916-EDE41645F72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC9E050-D1B4-470E-9916-EDE41645F72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC9E050-D1B4-470E-9916-EDE41645F72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC9E050-D1B4-470E-9916-EDE41645F72C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
