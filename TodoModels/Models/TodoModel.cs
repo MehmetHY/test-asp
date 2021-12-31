@@ -18,5 +18,7 @@ namespace TodoModels.Models
 
         public enum TodoState { NotStarted, InProgress, Completed } 
         public TodoState State { get; set; } = TodoState.NotStarted;
+
+        public int Index { get; set; }
     }
 }
