@@ -2,7 +2,7 @@
 
 namespace TodoModels.Models
 {
-    internal class TodoModel
+    public class TodoModel
     {
         public int? Id { get; set; }
 
