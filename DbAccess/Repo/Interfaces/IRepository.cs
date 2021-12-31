@@ -4,14 +4,14 @@ namespace DbAccess.Repo.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        T Get(int id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Expression<Func<T, bool>> filter);
+        Task<T> Get(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> filter);
 
-        void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
+        Task Add(T entity);
+        Task AddRange(IEnumerable<T> entities);
 
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+        Task Remove(T entity);
+        Task RemoveRange(IEnumerable<T> entities);
     }
 }
