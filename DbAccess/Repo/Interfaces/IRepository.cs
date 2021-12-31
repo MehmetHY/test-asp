@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace DbAccess.Repo
+namespace DbAccess.Repo.Interfaces
 {
     public interface IRepository<T> where T : class
     {
