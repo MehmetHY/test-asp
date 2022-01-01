@@ -1,52 +1,105 @@
 ﻿using DbAccess.Repo.Interfaces;
-using DbAccess.Data.Interfaces;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DbAccess.Repo
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _dbContext;
-        public Repository(DbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        internal DbSet<T> dbSet;
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> filter)
+        public Repository(DbContext db)
         {
-            var rows = await _dbContext.Find(filter);
-            return rows;
-        }
-        public async Task<T> Get(int id)
-        {
-            var entity = await _dbContext.Get<T>(id);
-            return entity;
-        }
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            var entites = await _dbContext.GetAll<T>();
-            return entites;
+            dbSet = db.Set<T>();
         }
 
         public async Task Add(T entity)
         {
-            await _dbContext.Add(entity);
-            return;
-        }
-        public async Task AddRange(IEnumerable<T> entities)
-        {
-            await _dbContext.AddRange(entities);
-            return;
+            await dbSet.AddAsync(entity);
         }
 
-        public async Task Remove(T entity)
+        public async Task AddRange(IEnumerable<T> entities)
         {
-            await _dbContext.Remove(entity);
-            return;
+            await dbSet.AddRangeAsync(entities);
         }
-        public async Task RemoveRange(IEnumerable<T> entities)
+
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string? includeProperties = null)
         {
-            await _dbContext.RemoveRange(entities);
+            IQueryable<T> query = dbSet;
+            
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                var properties = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                
+                foreach (var property in properties)
+                {
+                    query = query.Include(property);
+                }
+            }
+
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<T?> FirstOrDefault(Expression<Func<T, bool>>? filter = default, string? includeProperties = null)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                var properties = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var property in properties)
+                {
+                    query = query.Include(property);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<T?> Get(int id)
+        {
+            return await dbSet.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<T>> GetAll()
+        {
+            return await dbSet.ToListAsync();
+        }
+
+        public async Task Remove(int id)
+        {
+            T? entity = await Get(id);
+            
+            if (entity != null)
+            {
+                dbSet.Remove(entity);
+            }
+        }
+
+        public void Remove(T entity)
+        {
+            dbSet.Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
         }
     }
 }
