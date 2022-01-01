@@ -4,6 +4,7 @@ namespace TodoModels.Models
 {
     public class UserModel
     {
+        [Key]
         public int? Id { get; set; }
         
         [DataType(DataType.Text)]
@@ -15,5 +16,7 @@ namespace TodoModels.Models
         [Required]
         [MaxLength(64)]
         public string? Password { get; set; }
+
+        public IEnumerable<CategoryModel>? Categories { get; set; }
     }
 }

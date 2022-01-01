@@ -1,7 +1,7 @@
 ﻿using TodoModels.Models;
 using DbAccess.Repo.Interfaces;
 
-namespace TodoModels.Repositories
+namespace TodoRepo.Repositories.Interfaces
 {
     public interface ITodoRepository  : IRepository<TodoModel>
     {

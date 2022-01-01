@@ -6,8 +6,8 @@ namespace DbAccess.Repo
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly IDbContext _dbContext;
-        public Repository(IDbContext dbContext)
+        private readonly DbContext _dbContext;
+        public Repository(DbContext dbContext)
         {
             _dbContext = dbContext;
         }

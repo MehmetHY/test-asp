@@ -7,8 +7,6 @@ namespace TodoModels.Models
         public int? Id { get; set; }
 
         public UserModel? User { get; set; }
-        
-        public CategoryModel? BaseCategory { get; set; }
 
         public List<CategoryModel> SubCategories { get; set; } = new();
 
