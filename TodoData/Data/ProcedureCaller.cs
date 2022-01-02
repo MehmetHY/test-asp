@@ -1,7 +1,7 @@
-﻿using Dapper;
-using System.Data;
-using TodoData.Data.Interfaces;
+﻿using TodoData.Data.Interfaces;
+using TodoData.Data.Models;
 using TodoData.Factory.Abstract;
+using TodoData.Utils;
 
 namespace TodoData.Data
 {
@@ -14,43 +14,32 @@ namespace TodoData.Data
             _connectionFactory = connectionFactory;
         }
 
-        public void Execute(string procedureName, DynamicParameters? parameters = null)
+        public void Execute(StoredProcedureModel sp)
         {
-            using (var connection = _connectionFactory.CreateConnection())
-            {
-                connection.Open();
-                connection.Execute(procedureName, parameters, commandType: CommandType.StoredProcedure);
-            }
+            using var connection = _connectionFactory.CreateConnection();
+            connection.Open();
+            connection.Exec(sp);
         }
 
-        public T? GetValue<T>(string procedureName, DynamicParameters? parameters = null)
+        public T? GetValue<T>(StoredProcedureModel sp)
         {
-            using (var connection = _connectionFactory.CreateConnection())
-            {
-                connection.Open();
-                var value = connection.ExecuteScalar<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return (T?)Convert.ChangeType(value, typeof(T?));
-            }
+            using var connection = _connectionFactory.CreateConnection();
+            connection.Open();
+            return connection.QueryValue<T>(sp);
         }
 
-        public T? GetRow<T>(string procedureName, DynamicParameters? parameters = null)
+        public T? GetRow<T>(StoredProcedureModel sp)
         {
-            using (var connection = _connectionFactory.CreateConnection())
-            {
-                connection.Open();
-                var row = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
-                return (T?)Convert.ChangeType(row, typeof(T?));
-            }
+            using var connection = _connectionFactory.CreateConnection();
+            connection.Open();
+            return connection.QueryRow<T>(sp);
         }
 
-        public IEnumerable<T> GetRows<T>(string procedureName, DynamicParameters? parameters = null)
+        public IEnumerable<T> GetRows<T>(StoredProcedureModel sp)
         {
-            using (var connection = _connectionFactory.CreateConnection())
-            {
-                connection.Open();
-                var query = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return query;
-            }
+            using var connection = _connectionFactory.CreateConnection();
+            connection.Open();
+            return connection.QueryRows<T>(sp);
         }
     }
 }

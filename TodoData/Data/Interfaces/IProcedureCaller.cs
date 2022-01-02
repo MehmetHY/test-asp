@@ -1,12 +1,12 @@
-﻿using Dapper;
+﻿using TodoData.Data.Models;
 
 namespace TodoData.Data.Interfaces
 {
     public interface IProcedureCaller
     {
-        void Execute(string procedureName, DynamicParameters? parameters = null);
-        T? GetValue<T>(string procedureName, DynamicParameters? parameters = null);
-        T? GetRow<T>(string procedureName, DynamicParameters? parameters = null);
-        IEnumerable<T> GetRows<T>(string procedureName, DynamicParameters? parameters = null);
+        void Execute(StoredProcedureModel sp);
+        T? GetValue<T>(StoredProcedureModel sp);
+        T? GetRow<T>(StoredProcedureModel sp);
+        IEnumerable<T> GetRows<T>(StoredProcedureModel sp);
     }
 }
