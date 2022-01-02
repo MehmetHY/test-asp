@@ -1,46 +1,59 @@
 ﻿using Dapper;
-using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoData.Data.Interfaces;
+using TodoData.Factory.Interfaces;
 
 namespace TodoData.Data
 {
     public class ProcedureCaller : IProcedureCaller
     {
         private readonly string _connectionString;
+        private readonly IConnectionFactory _connectionFactory;
 
-        public ProcedureCaller(string connectionString)
+        public ProcedureCaller(IConnectionFactory connectionFactory, string connectionString)
         {
-            using (T connection = new T(connectionString))
-            {
-
-            }
+            _connectionFactory = connectionFactory;
+            _connectionString = connectionString;
         }
 
         public void Execute(string procedureName, DynamicParameters? parameters = null)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Execute(procedureName, parameters, commandType: CommandType.StoredProcedure);
+            }
         }
 
-        public T GetValue<T>(string procedureName, DynamicParameters? parameters = null)
+        public T? GetValue<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            {
+                connection.Open();
+                var value = connection.ExecuteScalar<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return (T?)Convert.ChangeType(value, typeof(T?));
+            }
         }
 
-        public T GetRow<T>(string procedureName, DynamicParameters? parameters = null)
+        public T? GetRow<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            {
+                connection.Open();
+                var row = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                return (T?)Convert.ChangeType(row, typeof(T?));
+            }
         }
 
         public IEnumerable<T> GetRows<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            {
+                connection.Open();
+                var query = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return query;
+            }
         }
     }
 }
