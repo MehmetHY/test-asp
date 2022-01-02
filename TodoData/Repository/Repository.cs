@@ -1,9 +1,9 @@
 ﻿using Dapper;
-using System.Dynamic;
 using TodoData.Data.Interfaces;
 using TodoData.Repository.Interface;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using TodoModels.Attributes;
+using TodoModels.Utils;
+using System.Data;
 
 namespace TodoData.Repository
 {
@@ -15,74 +15,65 @@ namespace TodoData.Repository
             _pc = pc;
         }
 
-        private bool ShouldProcess()
+        public void Add(T? entity)
         {
+            if (entity == null) return;
+
+            DynamicParameters parameters = new DynamicParameters();
+
             foreach (var prop in typeof(T).GetProperties())
             {
-                if (prop.CustomAttributes.Any(attrib => attrib.AttributeType == typeof(NotMappedAttribute)))
-                { 
-                    return false; 
-                }
-                if (prop.CustomAttributes.Any(attrib => attrib.AttributeType == typeof(KeyAttribute)))
+                if (prop.HasAttribute<PrimaryKey>()) continue;
+
+                if (prop.HasAttribute<TableColumn>())
                 {
-                    return false;
+                    var attr = prop.GetAttribute<TableColumn>();
+                    parameters.Add(prop.Name, prop.GetValue(entity), attr!.DataType, ParameterDirection.Input);
                 }
-                if (prop.Name == "Id")
+
+                string procName = $"SP_{typeof(T).Name}_Add";
+                _pc.Execute(procName, parameters);
+            }
+        }
+
+        public T? Get(object? id)
+        {
+            if (id == null) return null;
+
+            DynamicParameters parameters = new DynamicParameters();
+
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                if (prop.HasAttribute<PrimaryKey>() && prop.HasAttribute<TableColumn>())
                 {
-                    return false;
+                    var attr = prop.GetAttribute<TableColumn>();
+                    parameters.Add(prop.Name, id, attr!.DataType, ParameterDirection.Input);
+                    break;
                 }
             }
-            return true;
+
+            string procName = $"SP_{typeof(T).Name}_Get";
+            return _pc.GetRow<T>(procName, parameters);
         }
 
-        public void Add(T entity)
+        public void Remove(object? id)
         {
-            var parameters = new DynamicParameters();
-            foreach (var prop in entity.GetType().GetProperties())
+            if (id == null) return;
+
+            DynamicParameters parameters = new DynamicParameters();
+
+            foreach (var prop in typeof(T).GetProperties())
             {
-                if (!ShouldProcess()) continue;
-                if (prop.Name != "Id")
-                    parameters.Add(prop.Name, prop.GetValue(entity));
+                if (prop.HasAttribute<PrimaryKey>() && prop.HasAttribute<TableColumn>())
+                {
+                    var attr = prop.GetAttribute<TableColumn>();
+                    parameters.Add(prop.Name, id, attr!.DataType, ParameterDirection.Input);
+                    break;
+                }
             }
-            _pc.Execute("Add", parameters);
-        }
 
-        public void AddRange(IEnumerable<T> entities)
-        {
-            foreach (var entity in entities)
-            {
-                Add(entity);
-            }
-        }
-
-        public T? Get(int id)
-        {
-            
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
+            string procName = $"SP_{typeof(T).Name}_Remove";
+            _pc.Execute(procName, parameters);
         }
     }
 }
