@@ -2,7 +2,7 @@
 
 namespace TodoData.Data.Interfaces
 {
-    public interface IProcedureCaller : IDisposable
+    public interface IProcedureCaller
     {
         void Execute(string procedureName, DynamicParameters? parameters = null);
         T GetValue<T>(string procedureName, DynamicParameters? parameters = null);
