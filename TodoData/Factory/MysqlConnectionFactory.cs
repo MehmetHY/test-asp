@@ -1,14 +1,17 @@
 ﻿using System.Data;
 using MySqlConnector;
-using TodoData.Factory.Interfaces;
+using TodoData.Factory.Abstract;
 
 namespace TodoData.Factory
 {
-    public class MysqlConnectionFactory : IConnectionFactory
+    public class MysqlConnectionFactory : ConnectionFactory
     {
-        public IDbConnection CreateConnection(string connectionString)
+        public MysqlConnectionFactory(string connectionString) : base(connectionString)
         {
-            return new MySqlConnection(connectionString);
+        }
+        public override IDbConnection CreateConnection()
+        {
+            return new MySqlConnection(_connectionString);
         }
     }
 }

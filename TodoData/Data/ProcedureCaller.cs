@@ -1,24 +1,22 @@
 ﻿using Dapper;
 using System.Data;
 using TodoData.Data.Interfaces;
-using TodoData.Factory.Interfaces;
+using TodoData.Factory.Abstract;
 
 namespace TodoData.Data
 {
     public class ProcedureCaller : IProcedureCaller
     {
-        private readonly string _connectionString;
-        private readonly IConnectionFactory _connectionFactory;
+        private readonly ConnectionFactory _connectionFactory;
 
-        public ProcedureCaller(IConnectionFactory connectionFactory, string connectionString)
+        public ProcedureCaller(ConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
-            _connectionString = connectionString;
         }
 
         public void Execute(string procedureName, DynamicParameters? parameters = null)
         {
-            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Open();
                 connection.Execute(procedureName, parameters, commandType: CommandType.StoredProcedure);
@@ -27,7 +25,7 @@ namespace TodoData.Data
 
         public T? GetValue<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Open();
                 var value = connection.ExecuteScalar<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
@@ -37,7 +35,7 @@ namespace TodoData.Data
 
         public T? GetRow<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Open();
                 var row = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
@@ -48,7 +46,7 @@ namespace TodoData.Data
 
         public IEnumerable<T> GetRows<T>(string procedureName, DynamicParameters? parameters = null)
         {
-            using (var connection = _connectionFactory.CreateConnection(_connectionString))
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Open();
                 var query = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure);
