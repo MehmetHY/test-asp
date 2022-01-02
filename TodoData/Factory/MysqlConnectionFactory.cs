@@ -4,9 +4,9 @@ using TodoData.Factory.Abstract;
 
 namespace TodoData.Factory
 {
-    public class MysqlConnectionFactory : ConnectionFactory
+    public class MySQLConnectionFactory : ConnectionFactory
     {
-        public MysqlConnectionFactory(string connectionString) : base(connectionString)
+        public MySQLConnectionFactory(string connectionString) : base(connectionString)
         {
         }
         public override IDbConnection CreateConnection()

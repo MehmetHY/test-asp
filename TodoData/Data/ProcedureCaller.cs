@@ -39,7 +39,6 @@ namespace TodoData.Data
             {
                 connection.Open();
                 var row = connection.Query<T>(procedureName, parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
-
                 return (T?)Convert.ChangeType(row, typeof(T?));
             }
         }
