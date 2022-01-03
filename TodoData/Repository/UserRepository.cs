@@ -1,4 +1,5 @@
 ﻿using DbAccess.Data;
+using DbAccess.Data.Models;
 using DbAccess.Repository;
 using TodoModels.Models;
 
@@ -12,12 +13,21 @@ namespace TodoData.Repository
 
         public bool NameExists(string name)
         {
-            throw new NotImplementedException();
+            var parameters = new Dictionary<string, object?>();
+            parameters.Add("name", name);
+            var sp = new StoredProcedureModel(typeof(UserModel), nameof(NameExists), parameters);
+            var result = _spCaller.GetValue<bool>(sp);
+            return result;
         }
 
-        public bool PasswordCorrect(UserModel model)
+        public bool PasswordCorrect(UserModel? model)
         {
-            throw new NotImplementedException();
+            if (model == null || model.Password == null) return false;
+            var parameters = new Dictionary<string, object?>();
+            parameters.Add("password", model.Password);
+            var sp = new StoredProcedureModel(typeof(UserModel), nameof(PasswordCorrect), parameters);
+            var result = _spCaller.GetValue<bool>(sp);
+            return result;
         }
     }
 }
