@@ -1,78 +1,76 @@
-﻿using Dapper;
-using DbAccess.Data;
+﻿using DbAccess.Data;
 using DbAccess.Attributes;
 using DbAccess.Utils;
-using System.Data;
+using DbAccess.Data.Models;
 
 namespace DbAccess.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly IProcedureCaller _pc;
+        protected readonly IProcedureCaller _spCaller;
+        protected Queue<StoredProcedureModel> _spQueue = new();
+
         public Repository(IProcedureCaller pc)
         {
-            _pc = pc;
+            _spCaller = pc;
         }
 
         public void Add(T? entity)
         {
             if (entity == null) return;
-
-            DynamicParameters parameters = new DynamicParameters();
-
+            var parameters = new Dictionary<string, object?>();
             foreach (var prop in typeof(T).GetProperties())
             {
                 if (prop.HasAttribute<PrimaryKey>()) continue;
-
                 if (prop.HasAttribute<TableColumn>())
                 {
-                    var attr = prop.GetAttribute<TableColumn>();
-                    parameters.Add(prop.Name, prop.GetValue(entity), attr!.DataType, ParameterDirection.Input);
+                    parameters.Add(prop.Name, prop.GetValue(entity));
                 }
-
-                string procName = $"SP_{typeof(T).Name}_Add";
-                _pc.Execute(procName, parameters);
             }
+            var sp = new StoredProcedureModel(typeof(T), nameof(Add), parameters);
+            _spQueue.Enqueue(sp);
         }
 
         public T? Get(object? id)
         {
             if (id == null) return null;
-
-            DynamicParameters parameters = new DynamicParameters();
-
+            var parameters = new Dictionary<string, object?>();
             foreach (var prop in typeof(T).GetProperties())
             {
                 if (prop.HasAttribute<PrimaryKey>() && prop.HasAttribute<TableColumn>())
                 {
-                    var attr = prop.GetAttribute<TableColumn>();
-                    parameters.Add(prop.Name, id, attr!.DataType, ParameterDirection.Input);
+                    parameters.Add(prop.Name, id);
                     break;
                 }
             }
-
-            string procName = $"SP_{typeof(T).Name}_Get";
-            return _pc.GetRow<T>(procName, parameters);
+            var sp = new StoredProcedureModel(typeof(T), nameof(Get), parameters);
+            var entity = _spCaller.GetRow<T>(sp);
+            return entity;
         }
 
         public void Remove(object? id)
         {
             if (id == null) return;
-
-            DynamicParameters parameters = new DynamicParameters();
-
+            var parameters = new Dictionary<string, object?>();
             foreach (var prop in typeof(T).GetProperties())
             {
                 if (prop.HasAttribute<PrimaryKey>() && prop.HasAttribute<TableColumn>())
                 {
-                    var attr = prop.GetAttribute<TableColumn>();
-                    parameters.Add(prop.Name, id, attr!.DataType, ParameterDirection.Input);
+                    parameters.Add(prop.Name, id);
                     break;
                 }
             }
-
-            string procName = $"SP_{typeof(T).Name}_Remove";
-            _pc.Execute(procName, parameters);
+            var sp = new StoredProcedureModel(typeof(T), nameof(Remove), parameters);
+            _spQueue.Enqueue(sp);
         }
+
+        public void CommitChanges()
+        {
+            foreach (var sp in _spQueue)
+            {
+                _spCaller.Execute(sp);
+            }
+        }
+
     }
 }

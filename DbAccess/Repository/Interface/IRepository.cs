@@ -5,5 +5,6 @@
         T? Get(object? id);
         void Add(T? entity);
         void Remove(object? id);
+        void CommitChanges();
     }
 }
