@@ -1,10 +1,20 @@
-using TodoData.Factory;
-using TodoData.Factory.Abstract;
+using DbAccess.Data;
+using DbAccess.Factory;
+using TodoData.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IProcedureCaller, DapperProcedureCaller>
+    (
+        service => new DapperProcedureCaller
+        (
+            new MySQLConnectionFactory(builder.Configuration.GetConnectionString("Default")
+        )
+    )
+);
+builder.Services.AddSingleton<UnitOfWork>();
 
 var app = builder.Build();
 
