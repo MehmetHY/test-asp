@@ -5,12 +5,12 @@ namespace TodoModels.ViewModels
     public class SigninViewModel
     {
         [Required(ErrorMessage = "Please enter a user name!")]
-        [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!")]
+        [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!", MinimumLength = 4)]
         [DataType(DataType.Text)]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Please enter a password!")]
-        [StringLength(64, ErrorMessage = "Password must be between 4 - 64 characters!")]
+        [StringLength(64, ErrorMessage = "Password must be between 4 - 64 characters!", MinimumLength = 4)]
         [DataType(DataType.Password)]
         public string? Pasword { get; set; }
     }
