@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoData\TodoData.csproj" />
-    <ProjectReference Include="..\TodoData\DbAccess.csproj" />
+    <ProjectReference Include="..\DbAccess\DbAccess.csproj" />
   </ItemGroup>
 
 </Project>
