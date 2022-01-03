@@ -12,6 +12,6 @@ namespace TodoModels.ViewModels
         [Required(ErrorMessage = "Please enter a password!")]
         [StringLength(64, ErrorMessage = "Password must be between 4 - 64 characters!", MinimumLength = 4)]
         [DataType(DataType.Password)]
-        public string? Pasword { get; set; }
+        public string? Password { get; set; }
     }
 }
