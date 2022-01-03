@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace TodoModels.Utils
+namespace DbAccess.Utils
 {
     public static class AttributeUtils
     {

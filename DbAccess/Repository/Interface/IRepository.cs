@@ -1,4 +1,4 @@
-﻿namespace TodoData.Repository.Interface
+﻿namespace DbAccess.Repository
 {
     public interface IRepository<T> where T : class
     {

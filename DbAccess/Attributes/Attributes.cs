@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Data;
 
-namespace TodoModels.Attributes
+namespace DbAccess.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class TableColumn : Attribute

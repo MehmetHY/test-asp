@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using MySqlConnector;
-using TodoData.Factory.Abstract;
 
-namespace TodoData.Factory
+namespace DbAccess.Factory
 {
     public class MySQLConnectionFactory : ConnectionFactory
     {

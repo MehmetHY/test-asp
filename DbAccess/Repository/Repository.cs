@@ -1,11 +1,10 @@
 ﻿using Dapper;
-using TodoData.Data.Interfaces;
-using TodoData.Repository.Interface;
-using TodoModels.Attributes;
-using TodoModels.Utils;
+using DbAccess.Data;
+using DbAccess.Attributes;
+using DbAccess.Utils;
 using System.Data;
 
-namespace TodoData.Repository
+namespace DbAccess.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
