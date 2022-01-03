@@ -5,12 +5,23 @@ namespace TodoApp.Utils
 {
     public static class HashUtil
     {
-        public static void ToHashSha256(this string? str)
+        public static string ToHashSha256(this string? str)
         {
-            if (str == null) return;
+            if (str == null) return string.Empty;
             using var sha256 = SHA256.Create();
-            var chars = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
-            str = chars.ToString();
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
+            str = bytes.ToReadableFormat();
+            return str;
+        }
+
+        public static string ToReadableFormat(this byte[] bytes)
+        {
+            StringBuilder sb = new();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                sb.Append(bytes[i].ToString("x2"));
+            }
+            return sb.ToString();
         }
     }
 }
