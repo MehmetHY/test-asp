@@ -8,7 +8,7 @@ namespace TodoApp.Controllers
         public IActionResult Signin() => View();
 
         [HttpPost]
-        public IActionResult Signin(SigninViewModel? model) => 
+        public IActionResult Signin(SigninViewModel? model) =>
             ModelState.IsValid ? RedirectToAction("Index", "Home") : View(model);
 
 
