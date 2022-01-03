@@ -6,10 +6,8 @@ namespace DbAccess.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class TableColumn : Attribute
     {
-        public DbType DataType { get; }
-        public TableColumn(DbType type)
+        public TableColumn()
         {
-            DataType = type;
         }
     }
 
