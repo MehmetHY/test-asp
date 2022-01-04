@@ -9,10 +9,11 @@ namespace TodoApp.Utils
         public static bool HasFilter<T>(this ActionDescriptor descriptor) 
             where T : ActionFilterAttribute
         {
-            return descriptor.EndpointMetadata.
+            bool result = descriptor.EndpointMetadata.
                 Any(
                     o => o.GetType() == typeof(T)
                 );
+            return result; 
         }
     }
 }

@@ -4,6 +4,7 @@ using TodoApp.ActionFilters;
 
 namespace TodoApp.Controllers
 {
+    [AuthUserFilter]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -15,7 +16,8 @@ namespace TodoApp.Controllers
             _unitOfWord = unitOfWord;
         }
 
-        [ServiceFilter(typeof(AuthUserFilter))]
         public IActionResult Index() => View();
+
+        public IActionResult Test() => View();
     }
 }
