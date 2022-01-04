@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoModels.ViewModels;
-using TodoUtils.Utils;
+using TodoApp.Utils;
 
 namespace TodoApp.Controllers
 {

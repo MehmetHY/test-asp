@@ -8,8 +8,9 @@ namespace TodoApp.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            if (context.)
             if (!context.HttpContext.Session.IsSignedIn())
-                context.Result = ((Controller)context.Controller).RedirectToSigninPage();
+                context.Result = new RedirectToActionResult("Signin", "Account", null);
         }
     }
 }

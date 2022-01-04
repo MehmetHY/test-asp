@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoData.UnitOfWork;
-using TodoUtils.Utils;
+using TodoApp.ActionFilters;
 
 namespace TodoApp.Controllers
 {
@@ -15,6 +15,7 @@ namespace TodoApp.Controllers
             _unitOfWord = unitOfWord;
         }
 
-        public IActionResult Index() => new RedirectUtil(this).GetAuthActionResult(View());
+        [ServiceFilter(typeof(AuthUserFilter))]
+        public IActionResult Index() => View();
     }
 }
