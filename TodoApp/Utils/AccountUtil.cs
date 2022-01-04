@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoModels.Models;
 
-namespace TodoUtils.Utils
+namespace TodoApp.Utils
 {
     public static class AccountUtil
     {

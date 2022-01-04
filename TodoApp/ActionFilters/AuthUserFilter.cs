@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using TodoApp.Utils;
 
 namespace TodoApp.ActionFilters
 {
@@ -6,11 +8,8 @@ namespace TodoApp.ActionFilters
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            
-        }
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
+            if (!context.HttpContext.Session.IsSignedIn())
+                context.Result = ((Controller)context.Controller).RedirectToSigninPage();
         }
     }
 }
