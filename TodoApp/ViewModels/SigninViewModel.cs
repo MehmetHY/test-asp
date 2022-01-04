@@ -9,7 +9,6 @@ namespace TodoModels.ViewModels
         [Required(ErrorMessage = "Please enter a user name!")]
         [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!", MinimumLength = 4)]
         [DataType(DataType.Text)]
-        [Remote(action: "ValidateSignin", controller: "Validate", AdditionalFields = nameof(Password))]
         [ModelBinder(typeof(TrimModelBinder))]
         public string? Name { get; set; }
 
