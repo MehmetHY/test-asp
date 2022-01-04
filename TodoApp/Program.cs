@@ -5,7 +5,7 @@ using TodoData.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
 builder.Services.AddSession();
 builder.Services.AddSingleton<IProcedureCaller, DapperProcedureCaller>
     (

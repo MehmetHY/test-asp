@@ -10,7 +10,7 @@ namespace TodoApp.ActionFilters
         {
             Controller controller = (Controller)context.Controller; 
             if (context.HttpContext.Session.IsSignedIn())
-                controller.RedirectToHomePage();
+                context.Result = controller.RedirectToHomePage();
         }
     }
 }

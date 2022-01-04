@@ -16,10 +16,18 @@ namespace TodoApp.Controllers
 
 
         [AvoidRedundantSignFilter]
+        [FormatFilter]
         public IActionResult Signup() => View();
 
         [HttpPost]
-        public IActionResult Signup(SignupViewModel? model) =>
-            this.RedirectToSigninPage();
+        public IActionResult Signup(SignupViewModel? model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
