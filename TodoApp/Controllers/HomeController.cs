@@ -17,7 +17,5 @@ namespace TodoApp.Controllers
         }
 
         public IActionResult Index() => View();
-
-        public IActionResult Test() => View();
     }
 }

@@ -1,6 +1,5 @@
 using DbAccess.Data;
 using DbAccess.Factory;
-using TodoApp.ActionFilters;
 using TodoData.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +16,6 @@ builder.Services.AddSingleton<IProcedureCaller, DapperProcedureCaller>
     )
 );
 builder.Services.AddSingleton<UnitOfWork>();
-builder.Services.AddScoped<AuthUserFilter>();
 
 var app = builder.Build();
 
