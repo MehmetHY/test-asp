@@ -6,17 +6,17 @@ namespace TodoApp.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Signin() => new RedirectUtil(this).AvoidRedundantSign(View());
+        public IActionResult Signin() => this.AvoidRedundantSign(View());
 
         [HttpPost]
         public IActionResult Signin(SigninViewModel? model) =>
-            ModelState.IsValid ? RedirectToAction("Index", "Home") : View(model);
+            ModelState.IsValid ? this.RedirectToHomePage() : View(model);
 
 
-        public IActionResult Signup() => new RedirectUtil(this).AvoidRedundantSign(View());
+        public IActionResult Signup() => this.AvoidRedundantSign(View());
 
         [HttpPost]
         public IActionResult Signup(SignupViewModel? model) =>
-            ModelState.IsValid ? RedirectToAction(nameof(Signin)) : View(model);
+            ModelState.IsValid ? this.RedirectToSigninPage() : View(model);
     }
 }
