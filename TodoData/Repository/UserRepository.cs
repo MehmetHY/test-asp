@@ -11,6 +11,15 @@ namespace TodoData.Repository
         {
         }
 
+        public UserModel? GetByName(string name)
+        {
+            var parameters = new Dictionary<string, object?>();
+            parameters.Add("name", name);
+            var sp = new StoredProcedureModel(typeof(UserModel), nameof(GetByName), parameters);
+            var result = _spCaller.GetRow<UserModel>(sp);
+            return result;
+        }
+
         public bool NameExists(string name)
         {
             var parameters = new Dictionary<string, object?>();

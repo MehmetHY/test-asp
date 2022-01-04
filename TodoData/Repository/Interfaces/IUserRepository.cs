@@ -7,5 +7,6 @@ namespace TodoData.Repository
     {
         bool NameExists(string name);
         bool PasswordCorrect(string? name, string? password);
+        UserModel? GetByName(string name);
     }
 }

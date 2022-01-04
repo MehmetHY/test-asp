@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TodoData.UnitOfWork;
 using TodoModels.Models;
 
 namespace TodoApp.Utils
@@ -30,6 +31,13 @@ namespace TodoApp.Utils
         public static void SignIn(this Controller controller, UserModel model)
         {
             controller.HttpContext.Session.SignIn(model);
+        }
+
+        public static void SignUp(this Controller controller, UserModel model, UnitOfWork unitOfWork)
+        {
+            unitOfWork.UserRepo.Add(model);
+            var user = unitOfWork.UserRepo.GetByName(model.Name!);
+            controller.HttpContext.Session.SignIn(user!);
         }
 
         public static void SignOut(this ISession session)
