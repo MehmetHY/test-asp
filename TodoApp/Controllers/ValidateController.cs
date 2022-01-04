@@ -33,8 +33,7 @@ namespace TodoApp.Controllers
             if (string.IsNullOrWhiteSpace(password))
                 return Json("Password cannot be empty!");
 
-            name = name.Trim();
-            password = password.ToTrimmedHashSha256();
+            password = password.ToHashSha256();
             if (!_unitOfWork.UserRepo.PasswordCorrect(name, password))
                 return Json("Invalid password!");
 
