@@ -6,6 +6,6 @@ namespace TodoData.Repository
     public interface IUserRepository : IRepository<UserModel>
     {
         bool NameExists(string name);
-        bool PasswordCorrect(UserModel model);
+        bool PasswordCorrect(string? name, string? password);
     }
 }

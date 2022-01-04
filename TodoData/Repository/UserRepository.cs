@@ -20,11 +20,12 @@ namespace TodoData.Repository
             return result;
         }
 
-        public bool PasswordCorrect(UserModel? model)
+        public bool PasswordCorrect(string? name, string? password)
         {
-            if (model == null || model.Password == null) return false;
+            if (name == null || password == null) return false;
             var parameters = new Dictionary<string, object?>();
-            parameters.Add("password", model.Password);
+            parameters.Add("name", name);
+            parameters.Add("password", password);
             var sp = new StoredProcedureModel(typeof(UserModel), nameof(PasswordCorrect), parameters);
             var result = _spCaller.GetValue<bool>(sp);
             return result;

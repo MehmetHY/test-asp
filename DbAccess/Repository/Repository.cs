@@ -66,8 +66,9 @@ namespace DbAccess.Repository
 
         public void CommitChanges()
         {
-            foreach (var sp in _spQueue)
+            while (_spQueue.Count > 0)
             {
+                var sp = _spQueue.Dequeue();
                 _spCaller.Execute(sp);
             }
         }
