@@ -21,10 +21,10 @@ namespace TodoApp.Controllers
         [HttpPost]
         public IActionResult Signin(SigninViewModel? model)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.Valid(model, _unitOfWork))
                 return View(model);
-            }
+
+            this.Signin(model!, _unitOfWork);
             return RedirectToAction("Index", "Home");
         }
 
@@ -35,7 +35,7 @@ namespace TodoApp.Controllers
         [HttpPost]
         public IActionResult Signup(SignupViewModel? model)
         {
-            if (!ModelState.Valid(_unitOfWork))
+            if (!ModelState.Valid(model, _unitOfWork))
                 return View(model);
 
             this.SignUp(model!, _unitOfWork);

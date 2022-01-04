@@ -34,7 +34,12 @@ namespace TodoApp.Extensions
         {
             controller.HttpContext.Session.SignIn(model);
         }
-
+        public static void Signin(this Controller controller, SigninViewModel viewModel, UnitOfWork unitOfWork)
+        {
+            var adapter = new UserSignAdapter(unitOfWork);
+            var model = adapter.GetUser(viewModel);
+            controller.SignIn(model);
+        }
         public static void SignUp(this Controller controller, SignupViewModel viewModel, UnitOfWork unitOfWork)
         {
             var adapter = new UserSignAdapter(unitOfWork);

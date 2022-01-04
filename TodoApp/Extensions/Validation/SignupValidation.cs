@@ -6,20 +6,18 @@ namespace TodoApp.Extensions.Validation
 {
     public static class SignupValidation
     {
-        public static bool Valid(this ModelStateDictionary modelState, UnitOfWork unitOfWork)
+        public static bool Valid(this ModelStateDictionary modelState, SignupViewModel? model, UnitOfWork unitOfWork)
         {
-            bool valid = true;
+            if (model == null || !modelState.IsValid)
+                return false;
 
-            if (!modelState.IsValid)
-                valid = false;
-
-            if (unitOfWork.UserRepo.NameExists((string)modelState["Name"]!.RawValue!))
+            if (unitOfWork.UserRepo.NameExists(model.Name!))
             {
-                modelState.AddModelError("Name", "Name already exists!");
-                valid = false;
+                modelState.AddModelError(nameof(model.Name), "Name already exists!");
+                return false;
             }
 
-            return valid;
+            return true;
         }
     }
 }

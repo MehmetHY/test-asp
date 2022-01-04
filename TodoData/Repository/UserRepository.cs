@@ -13,8 +13,10 @@ namespace TodoData.Repository
 
         public UserModel? GetByName(string name)
         {
-            var parameters = new Dictionary<string, object?>();
-            parameters.Add("name", name);
+            var parameters = new Dictionary<string, object?>
+            {
+                { "name", name }
+            };
             var sp = new StoredProcedureModel(typeof(UserModel), nameof(GetByName), parameters);
             var result = _spCaller.GetRow<UserModel>(sp);
             return result;
@@ -22,8 +24,10 @@ namespace TodoData.Repository
 
         public bool NameExists(string name)
         {
-            var parameters = new Dictionary<string, object?>();
-            parameters.Add("name", name);
+            var parameters = new Dictionary<string, object?>
+            {
+                { "name", name }
+            };
             var sp = new StoredProcedureModel(typeof(UserModel), nameof(NameExists), parameters);
             var result = _spCaller.GetValue<bool>(sp);
             return result;
@@ -32,9 +36,11 @@ namespace TodoData.Repository
         public bool PasswordCorrect(string? name, string? password)
         {
             if (name == null || password == null) return false;
-            var parameters = new Dictionary<string, object?>();
-            parameters.Add("name", name);
-            parameters.Add("password", password);
+            var parameters = new Dictionary<string, object?>
+            {
+                { "name", name },
+                { "password", password }
+            };
             var sp = new StoredProcedureModel(typeof(UserModel), nameof(PasswordCorrect), parameters);
             var result = _spCaller.GetValue<bool>(sp);
             return result;
