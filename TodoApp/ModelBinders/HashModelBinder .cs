@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TodoApp.Utils;
 
 namespace TodoApp.ModelBinders
 {
-    public class TrimModelBinder : IModelBinder
+    public class HashModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext? context)
         {
@@ -25,8 +26,11 @@ namespace TodoApp.ModelBinders
 
             context.ModelState.SetModelValue(modelName, pResult);
             var value = pResult.FirstValue;
-            value = value?.Trim() ?? string.Empty;
-            context.Result = ModelBindingResult.Success(value);
+
+            if (string.IsNullOrWhiteSpace(value))
+                return Task.CompletedTask;
+
+            context.Result = ModelBindingResult.Success(value.ToHashSha256());
 
             return Task.CompletedTask;
         }
