@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TodoApp.Utils;
 using TodoData.UnitOfWork;
-using TodoModels.Models;
 
 namespace TodoApp.Controllers
 {
@@ -13,31 +13,44 @@ namespace TodoApp.Controllers
         }
 
         [AcceptVerbs("GET", "POST")]
-        public IActionResult ValidateSignin(string? name, string? password)
+        public IActionResult ValidateSigninName(string? name)
         {
-            string? error = null;
-
             if (string.IsNullOrWhiteSpace(name))
-                error = "Name cannot be empty!";
-            else if (string.IsNullOrWhiteSpace(password))
-                error = "Password cannot be empty!";
-            else if (!_unitOfWork.UserRepo.NameExists(name))
-                error = "Invalid user name!";
-            else if (!_unitOfWork.UserRepo.PasswordCorrect(name, password))
-                error = "Invalid password!";
-            
-            return error == null ? Json(true) : Json(error);
+                return Json("Name cannot be empty!");
+
+            if (!_unitOfWork.UserRepo.NameExists(name))
+                return Json("Invalid user name!");
+
+            return Json(true);
         }
 
         [AcceptVerbs("GET", "POST")]
-        public IActionResult ValidateSignup(string? name)
+        public IActionResult ValidateSigninPassword(string? name, string? password)
         {
-            string? error = null;
+            if (string.IsNullOrWhiteSpace(name)) 
+                return Json("Enter user name first!");
 
-            if (string.IsNullOrWhiteSpace(name)) error = "Name cannot be empty!";
-            else if (_unitOfWork.UserRepo.NameExists(name)) error = "Username already exists!";
+            if (string.IsNullOrWhiteSpace(password))
+                return Json("Password cannot be empty!");
+
+            name = name.Trim();
+            password = password.ToTrimmedHashSha256();
+            if (!_unitOfWork.UserRepo.PasswordCorrect(name, password))
+                return Json("Invalid password!");
+
+            return Json(true);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult ValidateSignupName(string? name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) 
+                return Json("Name cannot be empty!");
+
+            if (_unitOfWork.UserRepo.NameExists(name)) 
+                return Json("Username already exists!");
             
-            return error == null ? Json(true) : Json(error);
+            return Json(true);
         }
     }
 }

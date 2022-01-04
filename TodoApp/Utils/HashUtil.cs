@@ -14,6 +14,13 @@ namespace TodoApp.Utils
             return str;
         }
 
+        public static string ToTrimmedHashSha256(this string? str)
+        {
+            if (str == null) return string.Empty;
+            str = str.Trim();
+            return str.ToHashSha256();
+        }
+
         public static string ToReadableFormat(this byte[] bytes)
         {
             StringBuilder sb = new();
