@@ -16,6 +16,9 @@ namespace TodoApp.Controllers
             _unitOfWord = unitOfWord;
         }
 
-        public IActionResult Index() => View();
+        public IActionResult Index() 
+        { 
+            return View();
+        }
     }
 }
