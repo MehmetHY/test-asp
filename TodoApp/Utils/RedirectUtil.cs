@@ -2,21 +2,17 @@
 
 namespace TodoUtils.Utils
 {
-    public class RedirectUtil
+    public static class RedirectUtil
     {
-        private readonly IActionResult _signInAction;
-        private readonly IActionResult _homeAction;
-        private readonly AccountUtil _accountUtil;
-        public RedirectUtil(Controller controller)
-        {
-            _signInAction = controller.RedirectToAction("Signin", "Account");
-            _homeAction = controller.RedirectToAction("Index", "Home");
-            _accountUtil = new AccountUtil(controller.HttpContext.Session);
-        }
-        public IActionResult GetAuthActionResult(IActionResult target)
-            => _accountUtil.SignedIn ? target : _signInAction;
+        private const string SIGN_IN = "Signin";
+        private const string ACCOUNT = "Account";
+        private const string INDEX = "Index";
+        private const string HOME = "Home";
 
-        public IActionResult AvoidRedundantSign(IActionResult target)
-            => _accountUtil.SignedIn ? _homeAction : target;
+        public static IActionResult GetAuthActionResult(this Controller controller, IActionResult target)
+            => controller.IsSignedIn() ? target : controller.RedirectToAction(SIGN_IN, ACCOUNT);
+
+        public static IActionResult AvoidRedundantSign(this Controller controller, IActionResult target)
+            => controller.IsSignedIn() ? target : controller.RedirectToAction(INDEX, HOME);
     }
 }
