@@ -38,9 +38,7 @@ namespace TodoApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = adapter.GetUser(model!);
-            _unitOfWork.UserRepo.Add(user);
-            this.SignIn(user);
+            this.SignUp(model!, _unitOfWork);
             return RedirectToAction("Index", "Home");
         }
 

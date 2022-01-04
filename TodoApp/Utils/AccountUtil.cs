@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TodoApp.Adapters;
 using TodoData.UnitOfWork;
 using TodoModels.Models;
+using TodoModels.ViewModels;
 
 namespace TodoApp.Utils
 {
@@ -33,11 +35,14 @@ namespace TodoApp.Utils
             controller.HttpContext.Session.SignIn(model);
         }
 
-        public static void SignUp(this Controller controller, UserModel model, UnitOfWork unitOfWork)
+        public static void SignUp(this Controller controller, SignupViewModel viewModel, UnitOfWork unitOfWork)
         {
+            var adapter = new UserSignAdapter(unitOfWork);
+            var model = adapter.GetUser(viewModel);
             unitOfWork.UserRepo.Add(model);
+            unitOfWork.SaveChanges();
             var user = unitOfWork.UserRepo.GetByName(model.Name!);
-            controller.HttpContext.Session.SignIn(user!);
+            controller.SignIn(user!);
         }
 
         public static void SignOut(this ISession session)
