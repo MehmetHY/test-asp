@@ -50,14 +50,14 @@ namespace TodoApp.Extensions
             controller.SignIn(user!);
         }
 
-        public static void SignOut(this ISession session)
+        public static void Signout(this ISession session)
         {
             session.Remove(CURRENT_ACCOUNT_ID_KEY);
             session.Remove(CURRENT_ACCOUNT_NAME_KEY);
         }
-        public static void SignOut(this Controller controller)
+        public static void Signout(this Controller controller)
         {
-            controller.HttpContext.Session.SignOut();
+            controller.HttpContext.Session.Signout();
         }
     }
 }

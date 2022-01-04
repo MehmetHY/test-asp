@@ -6,6 +6,17 @@
     <title>@ViewData["Title"] - TodoApp</title>
 </head>
 <body>
+    <header>
+        @if (@Context.Session.IsSignedIn())
+        {
+            <a asp-action="Logout" asp-controller="Account">Log out</a>
+        }
+        else
+        {
+            <a asp-action="Signin">Sign in</a>
+            <a asp-action="Signup">Register</a>
+        }
+    </header>
     <main>
         @RenderBody()
     </main>

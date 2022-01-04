@@ -42,5 +42,10 @@ namespace TodoApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Logout()
+        {
+            this.Signout();
+            return RedirectToAction(nameof(SignIn));
+        }
     }
 }
