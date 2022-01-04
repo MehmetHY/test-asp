@@ -2,7 +2,7 @@
 
 namespace TodoApp.Extensions
 {
-    public static class ConverterUtil
+    public static class ConverterExtensions
     {
         public static string ToReadableString(this byte[] bytes)
         {

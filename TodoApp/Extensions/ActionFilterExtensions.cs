@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace TodoApp.Extensions
 {
-    public static class ActionFilterUtil
+    public static class ActionFilterExtensions
     {
         public static bool HasFilter<T>(this ActionDescriptor descriptor) 
             where T : ActionFilterAttribute

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TodoApp.Extensions
 {
-    public static class HashUtil
+    public static class HashExtensions
     {
         public static string ToHashSha256(this string? str)
         {

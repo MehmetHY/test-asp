@@ -2,7 +2,7 @@
 
 namespace TodoApp.Extensions
 {
-    public static class RedirectUtil
+    public static class RedirectExtensions
     {
         private const string SIGN_IN = "Signin";
         private const string ACCOUNT = "Account";

@@ -6,7 +6,7 @@ using TodoModels.ViewModels;
 
 namespace TodoApp.Extensions
 {
-    public static class AccountUtil
+    public static class AccountExtensions
     {
         private const string CURRENT_ACCOUNT_ID_KEY = "CURRENT_ACCOUNT_ID";
         private const string CURRENT_ACCOUNT_NAME_KEY = "CURRENT_ACCOUNT_NAME";
