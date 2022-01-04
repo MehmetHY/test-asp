@@ -25,5 +25,18 @@ namespace TodoApp.Controllers
             
             return error == null ? Json(true) : Json(error);
         }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult ValidateSignup(UserModel? model)
+        {
+            string? error = null;
+
+            if (model == null) error = "Invalid user";
+            else if (model.Name == null) error = "Name cannot be empty!";
+            else if (model.Password == null) error = "Password cannot be empty!";
+            else if (_unitOfWork.UserRepo.NameExists(model.Name)) error = "Username already exists!";
+            
+            return error == null ? Json(true) : Json(error);
+        }
     }
 }
