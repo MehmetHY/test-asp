@@ -9,8 +9,11 @@ namespace TodoApp.Controllers
         public IActionResult Signin() => new RedirectUtil(this).AvoidRedundantSign(View());
 
         [HttpPost]
-        public IActionResult Signin(SigninViewModel? model) =>
-            ModelState.IsValid ? RedirectToAction("Index", "Home") : View(model);
+        public IActionResult Signin(SigninViewModel? model)
+        {
+
+            return ModelState.IsValid ? RedirectToAction("Index", "Home") : View(model);
+        }
 
 
         public IActionResult Signup() => new RedirectUtil(this).AvoidRedundantSign(View());
