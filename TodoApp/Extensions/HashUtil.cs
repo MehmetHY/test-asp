@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace TodoApp.Utils
+namespace TodoApp.Extensions
 {
     public static class HashUtil
     {

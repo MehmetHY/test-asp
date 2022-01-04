@@ -4,7 +4,7 @@ using TodoData.UnitOfWork;
 using TodoModels.Models;
 using TodoModels.ViewModels;
 
-namespace TodoApp.Utils
+namespace TodoApp.Extensions
 {
     public static class AccountUtil
     {

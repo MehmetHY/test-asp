@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace TodoApp.Utils
+namespace TodoApp.Extensions
 {
     public static class ActionFilterUtil
     {

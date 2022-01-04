@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using TodoApp.Utils;
+using TodoApp.Extensions;
 
 namespace TodoApp.ActionFilters
 {

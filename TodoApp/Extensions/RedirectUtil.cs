@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TodoApp.Utils
+namespace TodoApp.Extensions
 {
     public static class RedirectUtil
     {

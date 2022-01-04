@@ -2,7 +2,7 @@
 using TodoModels.ViewModels;
 using TodoApp.ActionFilters;
 using TodoApp.Adapters;
-using TodoApp.Utils;
+using TodoApp.Extensions;
 using TodoData.UnitOfWork;
 
 namespace TodoApp.Controllers
@@ -35,7 +35,18 @@ namespace TodoApp.Controllers
         [HttpPost]
         public IActionResult Signup(SignupViewModel? model)
         {
+            bool success = true;
+            
             if (!ModelState.IsValid)
+                success = false;
+            
+            if (_unitOfWork.UserRepo.NameExists(model!.Name!))
+            {
+                ModelState.AddModelError(nameof(model.Name), "Name already exists!");
+                success = false;
+            }
+
+            if (!success)
                 return View(model);
 
             this.SignUp(model!, _unitOfWork);

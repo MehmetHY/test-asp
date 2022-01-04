@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TodoApp.Utils;
+using TodoApp.Extensions;
 
 namespace TodoApp.ModelBinders
 {

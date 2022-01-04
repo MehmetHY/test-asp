@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace TodoApp.Utils
+namespace TodoApp.Extensions
 {
     public static class ConverterUtil
     {
