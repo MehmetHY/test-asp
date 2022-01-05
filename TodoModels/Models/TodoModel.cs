@@ -14,6 +14,12 @@ namespace TodoModels.Models
         public string? Description { get; set; }
 
         [TableColumn]
+        public int? CategoryId { get; set; }
+        
+        [TableColumn]
+        public int? UserId { get; set; }
+
+        [TableColumn]
         public int? State { get; set; }
 
         [TableColumn]
