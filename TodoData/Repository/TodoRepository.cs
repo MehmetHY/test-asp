@@ -5,7 +5,7 @@ using TodoModels.Models;
 
 namespace TodoData.Repository
 {
-    internal class TodoRepository : Repository<TodoModel>, ITodoRepository
+    public class TodoRepository : Repository<TodoModel>, ITodoRepository
     {
         public TodoRepository(IProcedureCaller pc) : base(pc)
         {
