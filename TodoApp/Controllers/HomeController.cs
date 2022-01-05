@@ -19,11 +19,11 @@ namespace TodoApp.Controllers
             View(_hvmFactory.CreateHomeViewModel(this, string.Empty));
 
         [Route("[Action]/{Category}")]
-        public IActionResult Category([FromRoute(Name = "Category")] string? category) =>
-            View(
-                    nameof(Index), 
-                    _hvmFactory.CreateHomeViewModel(this, category) ??
-                    _hvmFactory.CreateHomeViewModel(this, string.Empty)
-                );
+        public IActionResult Category([FromRoute(Name = "Category")] string? category)
+        {
+            var model = _hvmFactory.CreateHomeViewModel(this, category);
+            return model == null ?
+                RedirectToAction(nameof(Index)) : View(nameof(Index), model);
+        }
     }
 }
