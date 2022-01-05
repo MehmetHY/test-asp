@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoModels.ViewModels;
+using TodoApp.ViewModels;
 using TodoApp.ActionFilters;
 using TodoApp.Extensions.Validation;
 using TodoApp.Extensions;

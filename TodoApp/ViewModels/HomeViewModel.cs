@@ -5,24 +5,15 @@ namespace TodoApp.ViewModels
 {
     public class CategoryNode
     {
-        private CategoryNode? _parent;
         public CategoryModel Category { get; private set; }
-        public List<CategoryNode> Children { get; private set; } = new();
-        public CategoryNode? Parent
-        {
-            get { return _parent; }
-            private set 
-            {
-                _parent?.Children.Remove(this);
-                _parent = value;
-                _parent?.Children.Add(this);
-            }
-        }
+        public List<CategoryNode> ChildNodes { get; private set; } = new();
+
+        public CategoryNode? ParentNode { get; private set; }
 
         public CategoryNode(CategoryModel model, CategoryNode? parent = null)
         {
             Category = model;
-            Parent = parent;
+            ParentNode = parent;
         }
 
         public void Load(UnitOfWork unitOfWork)
@@ -32,14 +23,14 @@ namespace TodoApp.ViewModels
             {
                 var childNode = new CategoryNode(child, this);
                 childNode.Load(unitOfWork);
-                Children.Add(childNode);
+                ChildNodes.Add(childNode);
             }
         }
     }
 
     public class HomeViewModel
     {
-        public List<CategoryNode> Categories { get; set; } = new();
+        public List<CategoryNode> CategoryNodes { get; private set; } = new();
         public void Load(int userId, UnitOfWork unitOfWork)
         {
             var categories = unitOfWork.CategoryRepo.GetOfUser(userId);
@@ -47,7 +38,7 @@ namespace TodoApp.ViewModels
             {
                 var categoryNode = new CategoryNode(category);
                 categoryNode.Load(unitOfWork);
-                Categories.Add(categoryNode);
+                CategoryNodes.Add(categoryNode);
             }
         }
     }

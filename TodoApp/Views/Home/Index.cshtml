@@ -1,10 +1,11 @@
-﻿@model IEnumerable<CategoryModel>
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@foreach (var category in @Model!)
+@foreach (var node in @Model!.CategoryNodes)
 {
-    <p>@category.Name</p>
+    <partial name="CategoryPartial.cshtml" model="@node" />
 }
+

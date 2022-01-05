@@ -2,6 +2,7 @@
 using TodoData.UnitOfWork;
 using TodoApp.ActionFilters;
 using TodoApp.Extensions;
+using TodoApp.ViewModels;
 
 namespace TodoApp.Controllers
 {
@@ -9,19 +10,20 @@ namespace TodoApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UnitOfWork _unitOfWord;
+        private readonly UnitOfWork _unitOfWork;
 
         public HomeController(ILogger<HomeController> logger, UnitOfWork unitOfWord)
         {
             _logger = logger;
-            _unitOfWord = unitOfWord;
+            _unitOfWork = unitOfWord;
         }
 
         public IActionResult Index() 
-        { 
-            int id = this.GetCurrentAccountId()!.Value;
-            var categories = _unitOfWord.CategoryRepo.GetOfUser(id);
-            return View(categories);
+        {
+            var model = new HomeViewModel();
+            int userId = this.GetCurrentAccountId()!.Value;
+            model.Load(userId, _unitOfWork);
+            return View(model);
         }
     }
 }

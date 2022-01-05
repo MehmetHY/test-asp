@@ -2,7 +2,7 @@
 using TodoApp.Adapters;
 using TodoData.UnitOfWork;
 using TodoModels.Models;
-using TodoModels.ViewModels;
+using TodoApp.ViewModels;
 
 namespace TodoApp.Extensions
 {

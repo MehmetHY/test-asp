@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using TodoData.UnitOfWork;
-using TodoModels.ViewModels;
+using TodoApp.ViewModels;
 
 namespace TodoApp.Extensions.Validation
 {

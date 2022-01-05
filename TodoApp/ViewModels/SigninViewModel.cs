@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.ModelBinders;
 
-namespace TodoModels.ViewModels
+namespace TodoApp.ViewModels
 {
     public class SigninViewModel
     {
