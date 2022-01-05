@@ -7,6 +7,7 @@
 </head>
 <body>
     <header>
+        <a asp-action="Index" asp-controller="Home">Home</a>
         @if (@Context.Session.IsSignedIn())
         {
             <a asp-action="Logout" asp-controller="Account">Log out</a>

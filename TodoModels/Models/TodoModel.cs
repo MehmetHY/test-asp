@@ -5,6 +5,7 @@ namespace TodoModels.Models
     public class TodoModel
     {
         [PrimaryKey]
+        [TableColumn]
         public int? Id { get; set; }
 
         [TableColumn]

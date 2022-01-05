@@ -5,6 +5,7 @@ namespace TodoModels.Models
     public class CategoryModel
     {
         [PrimaryKey]
+        [TableColumn]
         public int? Id { get; set; } = null;
 
         [TableColumn]
@@ -12,5 +13,8 @@ namespace TodoModels.Models
 
         [TableColumn]
         public int? UserId { get; set; } = null;
+
+        [TableColumn]
+        public int? BaseCategoryId { get; set; } = null;
     }
 }

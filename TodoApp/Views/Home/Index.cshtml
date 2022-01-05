@@ -1,6 +1,24 @@
 ﻿@model HomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Todo App";
 }
 
+@if (@Model!.Category != null && @Model.Parent == null)
+{
+    <a asp-action="Index">Back</a>
+}
+@if (@Model.Parent != null)
+{
+    <a asp-action="Category" asp-route-category="@Model.Parent.Name">Back</a>
+}
+
+@foreach (var category in @Model.Categories)
+{
+    <a asp-action="Category" asp-route-category="@category.Name">@category.Name</a>
+}
+
+@foreach (var todo in @Model.Todos)
+{
+    <p>@todo.Title</p>
+}
