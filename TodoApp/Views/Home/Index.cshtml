@@ -4,8 +4,3 @@
     ViewData["Title"] = "Home Page";
 }
 
-@foreach (var node in @Model!.CategoryNodes)
-{
-    <partial name="CategoryPartial.cshtml" model="@node" />
-}
-
