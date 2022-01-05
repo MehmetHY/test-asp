@@ -1,29 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoData.UnitOfWork;
 using TodoApp.ActionFilters;
-using TodoApp.Extensions;
-using TodoApp.ViewModels;
+using TodoApp.Services;
+using TodoApp.ViewModels.Factories;
 
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly HomeViewModelFactory _hvmFactory;
 
-        public HomeController(ILogger<HomeController> logger, UnitOfWork unitOfWord)
+        public HomeController(AppService appService)
         {
-            _logger = logger;
-            _unitOfWork = unitOfWord;
+            _hvmFactory =  appService.HomeViewModelFactory;
         }
 
-        public IActionResult Index() 
-        {
-            var model = new HomeViewModel();
-            int userId = this.GetCurrentAccountId()!.Value;
-            model.Load(userId, _unitOfWork);
-            return View(model);
-        }
+        public IActionResult Index() =>
+            View(_hvmFactory.CreateHomeViewModel(this));
     }
 }

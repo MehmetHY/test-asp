@@ -1,5 +1,6 @@
 using DbAccess.Data;
 using DbAccess.Factory;
+using TodoApp.Services;
 using TodoData.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddSingleton<IProcedureCaller, DapperProcedureCaller>
     )
 );
 builder.Services.AddSingleton<UnitOfWork>();
+builder.Services.AddSingleton<AppService>();
 
 var app = builder.Build();
 
