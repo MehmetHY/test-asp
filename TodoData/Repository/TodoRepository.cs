@@ -11,7 +11,7 @@ namespace TodoData.Repository
         {
         }
 
-        public IEnumerable<TodoModel> GetOfCategory(int categoryId)
+        public IEnumerable<TodoModel> GetOfCategory(int? categoryId)
         {
             var parameters = new Dictionary<string, object?>
             {
@@ -22,7 +22,19 @@ namespace TodoData.Repository
             return result;
         }
 
-        public IEnumerable<TodoModel> GetOfUser(int userId)
+        public IEnumerable<TodoModel> GetOfCategoryByName(int? userId, string? categoryName)
+        {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(userId), userId },
+                { nameof(categoryName), categoryName }
+            };
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetOfCategoryByName), parameters);
+            var result = _spCaller.GetRows<TodoModel>(sp);
+            return result;
+        }
+
+        public IEnumerable<TodoModel> GetOfUser(int? userId)
         {
             var parameters = new Dictionary<string, object?>
             {
