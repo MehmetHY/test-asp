@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoData.UnitOfWork;
 using TodoApp.ActionFilters;
+using TodoApp.Extensions;
 
 namespace TodoApp.Controllers
 {
@@ -18,7 +19,9 @@ namespace TodoApp.Controllers
 
         public IActionResult Index() 
         { 
-            return View();
+            int id = this.GetCurrentAccountId()!.Value;
+            var categories = _unitOfWord.CategoryRepo.GetOfUser(id);
+            return View(categories);
         }
     }
 }

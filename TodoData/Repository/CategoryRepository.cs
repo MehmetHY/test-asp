@@ -1,11 +1,6 @@
 ﻿using DbAccess.Data;
 using DbAccess.Data.Models;
 using DbAccess.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoModels.Models;
 
 namespace TodoData.Repository

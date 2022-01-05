@@ -1,6 +1,10 @@
-﻿@{
+﻿@model IEnumerable<CategoryModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<a asp-action="Test">Test</a>
-
+@foreach (var category in @Model!)
+{
+    <p>@category.Name</p>
+}

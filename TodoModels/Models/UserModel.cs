@@ -1,5 +1,4 @@
 ﻿using DbAccess.Attributes;
-using System.ComponentModel.DataAnnotations;
 
 namespace TodoModels.Models
 {
