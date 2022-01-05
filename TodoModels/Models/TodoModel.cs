@@ -1,26 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DbAccess.Attributes;
 
 namespace TodoModels.Models
 {
     public class TodoModel
     {
-        [Key]
+        [PrimaryKey]
         public int? Id { get; set; }
 
-        [DataType(DataType.Text)]
-        [Required]
-        [MaxLength(64)]
+        [TableColumn]
         public string? Title { get; set; }
 
-        [DataType(DataType.Text)]
+        [TableColumn]
         public string? Description { get; set; }
 
-        public enum TodoState { NotStarted, InProgress, Completed } 
+        [TableColumn]
+        public int? State { get; set; }
 
-        [Required]
-        [EnumDataType(typeof(TodoState))]
-        public TodoState State { get; set; } = TodoState.NotStarted;
-
-        public int Index { get; set; }
+        [TableColumn]
+        public int? Index { get; set; }
     }
 }
