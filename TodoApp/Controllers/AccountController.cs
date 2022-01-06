@@ -19,6 +19,7 @@ namespace TodoApp.Controllers
         public IActionResult Signin() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Signin(SigninViewModel? model)
         {
             if (!ModelState.Valid(model, _unitOfWork))
@@ -33,6 +34,7 @@ namespace TodoApp.Controllers
         public IActionResult Signup() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Signup(SignupViewModel? model)
         {
             if (!ModelState.Valid(model, _unitOfWork))
