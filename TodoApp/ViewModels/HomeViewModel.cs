@@ -4,6 +4,11 @@ namespace TodoApp.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+        public IEnumerable<CategoryModel> Categories { get; }
+        public HomeViewModel(IEnumerable<CategoryModel> categories)
+        {
+            Categories = categories;
+        }
+
     }
 }

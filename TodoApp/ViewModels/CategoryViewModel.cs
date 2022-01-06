@@ -4,10 +4,10 @@ namespace TodoApp.ViewModels
 {
     public class CategoryViewModel
     {
-        public CategoryModel Category { get; set; }
-        public CategoryModel Parent { get; set; }
-        public IEnumerable<CategoryModel> Categories { get; set; }
-        public IEnumerable<TodoModel> Todos { get; set; }
+        public CategoryModel Category { get; }
+        public CategoryModel Parent { get; }
+        public IEnumerable<CategoryModel> Categories { get; }
+        public IEnumerable<TodoModel> Todos { get; }
 
         public CategoryViewModel
             (
