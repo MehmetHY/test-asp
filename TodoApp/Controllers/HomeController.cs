@@ -4,6 +4,8 @@ using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
 using TodoApp.Extensions;
 using TodoApp.ViewModels;
+using TodoApp.Extensions.Validation;
+using TodoData.UnitOfWork;
 
 namespace TodoApp.Controllers
 {
@@ -11,10 +13,12 @@ namespace TodoApp.Controllers
     public class HomeController : Controller
     {
         private readonly HomeViewModelFactory _hvmFactory;
+        private readonly UnitOfWork _unitOfWork;
 
         public HomeController(AppService appService)
         {
-            _hvmFactory =  appService.HomeViewModelFactory;
+            _hvmFactory = appService.HomeViewModelFactory;
+            _unitOfWork = appService.UnitOfWork;
         }
 
         public IActionResult Index()
@@ -29,7 +33,13 @@ namespace TodoApp.Controllers
         [HttpPost]
         public IActionResult CreateCategory([FromForm] HomeViewModel? model)
         {
+            if (model == null)
+                return RedirectToAction(nameof(Index));
 
+            if (ModelState.Valid(model.CreateCategoryModel, _unitOfWork))
+                return Ok(model.CreateCategoryModel.NewCategoryName);
+            
+            return View(nameof(Index), model);
         }
     }
 }
