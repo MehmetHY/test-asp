@@ -10,5 +10,6 @@ namespace TodoApp.ViewModels
         [StringLength(64, ErrorMessage = "Category name cannot be longer than 64 characters!")]
         public string? NewCategoryName { get; set; }
         public bool NewCategoryHasError { get; set; } = false;
+        public int? UserId { get; set; }
     }
 }

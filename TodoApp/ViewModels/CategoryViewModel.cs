@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using TodoApp.ModelBinders;
-using TodoModels.Models;
+﻿using TodoModels.Models;
 
 namespace TodoApp.ViewModels
 {
@@ -12,23 +9,22 @@ namespace TodoApp.ViewModels
         public IEnumerable<CategoryModel> Categories { get; }
         public IEnumerable<TodoModel> Todos { get; }
 
-        [ModelBinder(typeof(TrimModelBinder))]
-        [StringLength(64, ErrorMessage = "Category name cannot be longer than 64 characters!")]
-        public string? NewCategoryName { get; set; }
-        public bool NewCategoryHasError { get; set; } = false;
+        public CreateCategoryViewModel CreateCategoryModel { get; set; }
 
         public CategoryViewModel
             (
                 CategoryModel category, 
                 CategoryModel? parent, 
                 IEnumerable<CategoryModel> categories, 
-                IEnumerable<TodoModel> todos
+                IEnumerable<TodoModel> todos,
+                CreateCategoryViewModel createCategoryModel
             )
         {
             Category = category;
             Parent = parent;
             Categories = categories;
             Todos = todos;
+            CreateCategoryModel = createCategoryModel;
         }
     }
 }

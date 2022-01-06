@@ -16,7 +16,8 @@ namespace TodoApp.ViewModels.Factories
                 return null;
 
             var categories = _unitOfWork.CategoryRepo.GetOfUser(userId);
-            var model = new HomeViewModel(categories);
+            var createCategoryModel = new CreateCategoryViewModel { UserId = userId };
+            var model = new HomeViewModel(categories, createCategoryModel);
             
             return model;
         }
