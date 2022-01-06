@@ -25,21 +25,36 @@ namespace TodoApp.Controllers
         {
             var userId = this.GetCurrentAccountId();
             var model = _hvmFactory.CreateHomeViewModel(userId);
+            
+            if (model == null)
+                return RedirectToAction("Signin", "Account");
 
-            return model == null ?
-                RedirectToAction("Signin", "Account") : View(model);
+            if (TempData.ContainsKey("Errors"))
+            {
+                var errors = (Dictionary<string, string>)TempData["Errors"]!;
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult CreateCategory([FromForm] HomeViewModel? model)
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateCategory([FromForm(Name = "CreateCategoryModel")] CreateCategoryViewModel? model)
         {
+            //var model = new CreateCategoryViewModel();
             if (model == null)
                 return RedirectToAction(nameof(Index));
 
-            if (ModelState.Valid(model.CreateCategoryModel, _unitOfWork))
-                return Ok(model.CreateCategoryModel.NewCategoryName);
-            
-            return View(nameof(Index), model);
+            if (ModelState.Valid(model, _unitOfWork, out var errors))
+                return Ok(model.NewCategoryName);
+
+            TempData["Errors"] = errors;
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
