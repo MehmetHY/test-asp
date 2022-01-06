@@ -2,28 +2,27 @@
 using TodoApp.ActionFilters;
 using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
+using TodoApp.Extensions;
 
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
     public class CategoryController : Controller
     {
-        private readonly HomeViewModelFactory _hvmFactory;
+        private readonly CategoryViewModelFactory _cvmFactory;
 
         public CategoryController(AppService appService)
         {
-            _hvmFactory = appService.HomeViewModelFactory;
+            _cvmFactory = appService.CategoryViewModelFactory;
         }
 
-        public IActionResult Index() =>
-            View(_hvmFactory.CreateHomeViewModel(this, string.Empty));
-
-        [Route("[Action]/{Category}")]
-        public IActionResult Category([FromRoute(Name = "Category")] string? category)
+        public IActionResult Index(int? categoryId)
         {
-            var model = _hvmFactory.CreateHomeViewModel(this, category);
+            var userId = this.GetCurrentAccountId();
+            var model = _cvmFactory.CreateCategoryViewModel(userId, categoryId);
+
             return model == null ?
-                RedirectToAction(nameof(Index)) : View(nameof(Index), model);
+                RedirectToAction("Index", "Home") : View(model);
         }
     }
 }
