@@ -1,0 +1,10 @@
+﻿@model CategoryModel
+
+@if (@Model != null)
+{
+    
+<a asp-action="Index" asp-controller="Category" asp-route-categoryId="@Model.Id">
+    @Model.Name
+</a>
+
+}

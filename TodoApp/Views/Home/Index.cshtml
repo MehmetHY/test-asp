@@ -1,50 +1,6 @@
 ﻿@model HomeViewModel
 
 @{
-    ViewData["Title"] = "Todo App";
+    ViewData["Title"] = "Home";
 }
 
-@if (@Model!.Category != null && @Model.Parent == null)
-{
-    <a asp-action="Index">Back</a>
-}
-@if (@Model.Parent != null)
-{
-    <a asp-action="Category" asp-route-category="@Model.Parent.Name">Back</a>
-}
-
-@foreach (var category in @Model.Categories)
-{
-    <a asp-action="Category" asp-route-category="@category.Name">@category.Name</a>
-}
-<button>Add New Category</button>
-<form method="get">
-    <input type="text" />
-    <input type="submit" value="Create" />
-</form>
-
-@foreach (var todo in @Model.Todos)
-{
-    <form method="get">
-        <a href="">@todo.State</a>
-        <button>Description</button>
-        <span>@todo.Description</span>
-        <input type="text" />
-        <span>@todo.Title</span>
-        <input type="text" />
-        <button>Edit</button>
-        <input type="submit" value="Save" />
-        <a href="">Up</a>
-        <a href="">Down</a>
-        <a href="">Delete</a>
-    </form>
-}
-
-<button>Create New Todo</button>
-<form method="get">
-    <label>Title</label>
-    <input type="text" />
-    <label>Description</label>
-    <input type="text" />
-    <input type="submit" value="Create" />
-</form>
