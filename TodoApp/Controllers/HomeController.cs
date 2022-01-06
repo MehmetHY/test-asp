@@ -45,7 +45,6 @@ namespace TodoApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateCategory([FromForm(Name = "CreateCategoryModel")] CreateCategoryViewModel? model)
         {
-            //var model = new CreateCategoryViewModel();
             if (model == null)
                 return RedirectToAction(nameof(Index));
 
