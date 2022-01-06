@@ -45,12 +45,12 @@ namespace TodoData.Repository
             return result;
         }
 
-        public bool UserHasCategory(int? userId, string? categoryName)
+        public bool UserHasCategory(int? userId, int? categoryId)
         {
             var parameters = new Dictionary<string, object?>
             {
                 { nameof(userId), userId },
-                { nameof(categoryName), categoryName }
+                { nameof(categoryId), categoryId }
             };
             var sp = new StoredProcedureModel(typeof(CategoryModel), nameof(UserHasCategory), parameters);
             var result = _spCaller.GetValue<bool>(sp);

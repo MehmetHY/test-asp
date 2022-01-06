@@ -15,6 +15,9 @@ namespace TodoApp.ViewModels.Factories
             if (categoryId == null || userId == null)
                 return null;
 
+            if (!_unitOfWork.CategoryRepo.UserHasCategory(userId, categoryId))
+                return null;
+
             var category = _unitOfWork.CategoryRepo.Get(categoryId);
 
             if (category == null) 
