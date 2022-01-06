@@ -4,12 +4,7 @@
     ViewData["Title"] = "Home";
 }
 
-@if (@Model != null)
+@foreach (var category in @Model!.Categories)
 {
-    
-    @foreach (var category in @Model.Categories)
-    {
-        <partial name="Partials/Category.cshtml" model="@category" />
-    }
-
+    <partial name="../Partials/Category.cshtml" model="@category" />
 }

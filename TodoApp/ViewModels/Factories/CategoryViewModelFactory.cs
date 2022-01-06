@@ -22,9 +22,6 @@ namespace TodoApp.ViewModels.Factories
 
             var parent = _unitOfWork.CategoryRepo.Get(category.BaseCategoryId);
 
-            if (parent == null)
-                return null;
-
             var categories = _unitOfWork.CategoryRepo.GetOfCategory(categoryId);
             var todos = _unitOfWork.TodoRepo.GetOfCategory(categoryId);
             var model = new CategoryViewModel(category, parent, categories, todos);

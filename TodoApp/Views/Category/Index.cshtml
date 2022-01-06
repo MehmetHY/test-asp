@@ -1,2 +1,25 @@
 ﻿@model CategoryViewModel
 
+@if (@Model!.Parent == null)
+{
+    <a asp-action="Index" asp-controller="Home">
+        Back
+    </a>
+}
+else
+{
+    <a asp-action="Index" asp-controller="Category" asp-route-categoryId="@Model.Parent.Id" >
+        Back
+    </a>
+}
+
+@foreach (var category in @Model.Categories)
+{
+    <partial name="../Partials/Category.cshtml" model="@category" />
+}
+
+@foreach (var todo in @Model.Todos)
+{
+    <partial name="../Partials/Todo.cshtml" model="@todo" />
+}
+
