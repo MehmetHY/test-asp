@@ -22,7 +22,7 @@ namespace TodoData.Repository
             return result;
         }
         
-        public CategoryModel? GetByName(int userId, string? categoryName)
+        public CategoryModel? GetByName(int? userId, string? categoryName)
         {
             var parameters = new Dictionary<string, object?>
             {
@@ -34,7 +34,7 @@ namespace TodoData.Repository
             return result;
         }
 
-        public IEnumerable<CategoryModel> GetOfUser(int userId)
+        public IEnumerable<CategoryModel> GetOfUser(int? userId)
         {
             var parameters = new Dictionary<string, object?>
             {
@@ -45,7 +45,7 @@ namespace TodoData.Repository
             return result;
         }
 
-        public bool UserHasCategory(int userId, string? categoryName)
+        public bool UserHasCategory(int? userId, string? categoryName)
         {
             var parameters = new Dictionary<string, object?>
             {

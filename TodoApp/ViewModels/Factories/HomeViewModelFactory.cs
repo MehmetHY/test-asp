@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TodoData.UnitOfWork;
-using TodoApp.Extensions;
+﻿using TodoData.UnitOfWork;
 
 namespace TodoApp.ViewModels.Factories
 {
@@ -12,33 +10,14 @@ namespace TodoApp.ViewModels.Factories
             _unitOfWork = unitOfWork;
         }
 
-        public HomeViewModel? CreateHomeViewModel(Controller controller, string? categoryName = null)
+        public HomeViewModel? CreateHomeViewModel(int? userId)
         {
-            var viewModel = new HomeViewModel();
-            int userId = controller.GetCurrentAccountId()!.Value;
-            
-            if (categoryName == string.Empty)
-            {
-                viewModel.Categories = _unitOfWork.CategoryRepo.GetOfUser(userId).ToList();
-                viewModel.Todos = _unitOfWork.TodoRepo.GetOfUser(userId).ToList();
-                return viewModel;
-            }
+            if (userId == null)
+                return null;
 
-            var category = _unitOfWork.CategoryRepo.GetByName(userId, categoryName);
-            
-            if (category != null)
-            {
-                viewModel.Category = category;
-                viewModel.Parent = _unitOfWork.CategoryRepo.Get(category.BaseCategoryId);
-                viewModel.Categories = _unitOfWork.CategoryRepo.GetOfCategory(category.Id).ToList();
-                viewModel.Todos = _unitOfWork.TodoRepo.GetOfCategory(category.Id).ToList();
-            }
-            else
-            {
-                viewModel = null;
-            }
-
-            return viewModel;
+            var categories = _unitOfWork.CategoryRepo.GetOfUser(userId);
+            var model = new HomeViewModel { Categories = categories };
+            return model;
         }
     }
 }
