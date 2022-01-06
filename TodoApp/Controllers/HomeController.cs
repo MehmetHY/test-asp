@@ -29,13 +29,15 @@ namespace TodoApp.Controllers
             if (model == null)
                 return RedirectToAction("Signin", "Account");
 
-            if (TempData.ContainsKey("Errors"))
+            Dictionary<string, string>? errorDictionary;
+
+            if (TempData.ContainsKey(nameof(errorDictionary)))
             {
-                var errors = (Dictionary<string, string>)TempData["Errors"]!;
-                foreach (var error in errors)
-                {
-                    ModelState.AddModelError(error.Key, error.Value);
-                }
+                errorDictionary = TempData[nameof(errorDictionary)] as Dictionary<string, string>;
+
+                if (errorDictionary != null)
+                    foreach (var item in errorDictionary)
+                        ModelState.AddModelError(item.Key, item.Value);
             }
 
             return View(model);
@@ -48,10 +50,24 @@ namespace TodoApp.Controllers
             if (model == null)
                 return RedirectToAction(nameof(Index));
 
-            if (ModelState.Valid(model, _unitOfWork, out var errors))
+            if (ModelState.Valid(model, _unitOfWork))
                 return Ok(model.NewCategoryName);
 
-            TempData["Errors"] = errors;
+
+            var errorDictionary = new Dictionary<string, string>();
+
+            foreach (var state in ModelState)
+            {
+                var propertyName = state.Key;
+
+                foreach (var error in state.Value.Errors)
+                    errorDictionary.Add(propertyName, error.ErrorMessage);
+
+            }
+
+            TempData[nameof(errorDictionary)] = errorDictionary;
+
+
 
             return RedirectToAction(nameof(Index));
         }

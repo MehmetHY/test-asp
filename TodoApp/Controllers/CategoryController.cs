@@ -36,7 +36,7 @@ namespace TodoApp.Controllers
             if (model == null)
                 return RedirectToAction("Index", "Home");
 
-            if (ModelState.Valid(model.CreateCategoryModel, _unitOfWork, out var errors))
+            if (ModelState.Valid(model.CreateCategoryModel, _unitOfWork))
                 return Ok(model.CreateCategoryModel.NewCategoryName);
 
             return View(nameof(Index), model);

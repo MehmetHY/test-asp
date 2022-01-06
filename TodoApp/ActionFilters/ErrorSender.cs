@@ -9,26 +9,21 @@ namespace TodoApp.ActionFilters
         {
             base.OnActionExecuted(context);
 
-
-
             var controller = context.Controller as Controller;
             var modelState = controller?.ViewData.ModelState;
             
             if (modelState == null)
                 return;
 
-            var errorDictionary = new Dictionary<string, IEnumerable<string>>();
+            var errorDictionary = new Dictionary<string, string>();
             
             foreach (var state in modelState)
             {
-                string propertyName = state.Key;
-                var errorMessages = new List<string>();
+                var propertyName = state.Key;
             
                 foreach (var error in state.Value.Errors)
-                    errorMessages.Add(error.ErrorMessage);
+                    errorDictionary.Add(propertyName, error.ErrorMessage);
 
-                if (errorMessages.Count > 0)
-                    errorDictionary.Add(propertyName, errorMessages);
             }
 
             controller!.TempData[nameof(errorDictionary)] = errorDictionary;

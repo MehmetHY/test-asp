@@ -6,9 +6,9 @@ namespace TodoApp.Extensions.Validation
 {
     public static class CreateCategoryValidation
     {
-        public static bool Valid(this ModelStateDictionary modelState, CreateCategoryViewModel? model, UnitOfWork unitOfWork, out Dictionary<string, string> errors)
+        public static bool Valid(this ModelStateDictionary modelState, CreateCategoryViewModel? model, UnitOfWork unitOfWork)
         {
-            errors = new Dictionary<string, string>();
+            //errors = new Dictionary<string, string>();
             if (model == null || !modelState.IsValid)
                 return false;
 
@@ -17,7 +17,8 @@ namespace TodoApp.Extensions.Validation
                 model.NewCategoryHasError = true;
                 var key = $"CreateCategoryModel.{nameof(model.NewCategoryName)}";
                 var error = "Name cannot be empty!";
-                errors.Add(key, error);
+                //errors.Add(key, error);
+                modelState.AddModelError(key, error);
 
                 return false;
             }
@@ -27,7 +28,8 @@ namespace TodoApp.Extensions.Validation
                 model.NewCategoryHasError = true;
                 var key = $"CreateCategoryModel.{nameof(model.NewCategoryName)}";
                 var error = $"\"{model.NewCategoryName}\" already exists!";
-                errors.Add(key, error);
+                //errors.Add(key, error);
+                modelState.AddModelError(key, error);
 
                 return false;
             }
