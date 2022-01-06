@@ -21,7 +21,7 @@ namespace TodoData.Repository
             var result = _spCaller.GetRows<CategoryModel>(sp);
             return result;
         }
-        
+
         public CategoryModel? GetByName(int? userId, string? categoryName)
         {
             var parameters = new Dictionary<string, object?>
@@ -54,6 +54,21 @@ namespace TodoData.Repository
             };
             var sp = new StoredProcedureModel(typeof(CategoryModel), nameof(UserHasCategory), parameters);
             var result = _spCaller.GetValue<bool>(sp);
+            return result;
+        }
+
+
+        public bool NameExists(int? userId, string? name)
+        {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(userId), userId },
+                { nameof(name), name },
+            };
+
+            var sp = new StoredProcedureModel(typeof(CategoryModel), nameof(NameExists), parameters);
+            var result = _spCaller.GetValue<bool>(sp);
+
             return result;
         }
     }

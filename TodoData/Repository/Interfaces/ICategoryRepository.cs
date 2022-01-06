@@ -9,5 +9,6 @@ namespace TodoData.Repository
         IEnumerable<CategoryModel> GetOfCategory(int? categoryId);
         bool UserHasCategory(int? userId, int? categoryId);
         CategoryModel? GetByName(int? userId, string? categoryName);
+        bool NameExists(int? userId, string? name);
     }
 }

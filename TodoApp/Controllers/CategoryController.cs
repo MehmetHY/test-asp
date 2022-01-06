@@ -3,6 +3,7 @@ using TodoApp.ActionFilters;
 using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
 using TodoApp.Extensions;
+using TodoApp.ViewModels;
 
 namespace TodoApp.Controllers
 {
@@ -23,6 +24,13 @@ namespace TodoApp.Controllers
 
             return model == null ?
                 RedirectToAction("Index", "Home") : View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([FromForm(Name = "viewModel")] CategoryViewModel? viewModel)
+        {
+            return Ok();
         }
     }
 }
