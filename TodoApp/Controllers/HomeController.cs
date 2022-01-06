@@ -2,6 +2,7 @@
 using TodoApp.ActionFilters;
 using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
+using TodoApp.Extensions;
 
 namespace TodoApp.Controllers
 {
@@ -15,15 +16,13 @@ namespace TodoApp.Controllers
             _hvmFactory =  appService.HomeViewModelFactory;
         }
 
-        public IActionResult Index() =>
-            View(_hvmFactory.CreateHomeViewModel(this, string.Empty));
-
-        [Route("[Action]/{Category}")]
-        public IActionResult Category([FromRoute(Name = "Category")] string? category)
+        public IActionResult Index()
         {
-            var model = _hvmFactory.CreateHomeViewModel(this, category);
+            var userId = this.GetCurrentAccountId();
+            var model = _hvmFactory.CreateHomeViewModel(userId);
+
             return model == null ?
-                RedirectToAction(nameof(Index)) : View(nameof(Index), model);
+                RedirectToAction("Signin", "Account") : View(model);
         }
     }
 }
