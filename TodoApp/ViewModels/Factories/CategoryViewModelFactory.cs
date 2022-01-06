@@ -10,13 +10,33 @@ namespace TodoApp.ViewModels.Factories
             _unitOfWork = unitOfWork;
         }
 
-        public CategoryViewModel? Create(int? userId, int? rootCategoryId)
+        public CategoryViewModel? Create(int? userId, int? categoryId)
         {
-            if (rootCategoryId == null || userId == null)
+            if (categoryId == null || userId == null)
                 return null;
 
-            CategoryViewModel? categoryViewModel = new();
-            return categoryViewModel;
+            var category = _unitOfWork.CategoryRepo.Get(categoryId);
+
+            if (category == null) 
+                return null;
+
+            var parent = _unitOfWork.CategoryRepo.Get(category.BaseCategoryId);
+
+            if (parent == null)
+                return null;
+
+            var categories = _unitOfWork.CategoryRepo.GetOfCategory(categoryId);
+            var todos = _unitOfWork.TodoRepo.GetOfCategory(categoryId);
+
+            var model = new CategoryViewModel
+            {
+                Category = category,
+                Parent = parent,
+                Categories = categories,
+                Todos = todos
+            };
+
+            return model;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace TodoApp.ViewModels
     {
         public CategoryModel? Category { get; set; } = null;
         public CategoryModel? Parent { get; set; } = null;
-        public List<CategoryModel> Categories { get; set; } = new();
-        public List<TodoModel> Todos { get; set; } = new();
+        public IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+        public IEnumerable<TodoModel> Todos { get; set; } = new List<TodoModel>();
     }
 }
