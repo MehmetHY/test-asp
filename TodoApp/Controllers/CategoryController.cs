@@ -74,10 +74,7 @@ namespace TodoApp.Controllers
         public IActionResult Update([FromForm(Name = "updateModel")] UpdateCategoryViewModel? model)
         {
             if (ModelState.Valid(model, _unitOfWork))
-            {
                 _unitOfWork.CategoryRepo.Update(model!.Category);
-                _unitOfWork.SaveChanges();
-            }
 
             return model?.FromHome ?? true ?
                 RedirectToAction("Index", "Home") :
