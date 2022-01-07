@@ -14,7 +14,7 @@ namespace TodoApp.Extensions.Validation
             if (string.IsNullOrWhiteSpace(model.NewCategoryName))
             {
                 model.NewCategoryHasError = true;
-                var key = $"CreateCategoryModel.{nameof(model.NewCategoryName)}";
+                var key = nameof(model.NewCategoryName);
                 var error = "Name cannot be empty!";
                 modelState.AddModelError(key, error);
 
@@ -28,7 +28,7 @@ namespace TodoApp.Extensions.Validation
             if (nameExists)
             {
                 model.NewCategoryHasError = true;
-                var key = $"CreateCategoryModel.{nameof(model.NewCategoryName)}";
+                var key = nameof(model.NewCategoryName);
                 var error = $"\"{model.NewCategoryName}\" already exists!";
                 modelState.AddModelError(key, error);
 

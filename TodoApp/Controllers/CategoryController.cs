@@ -34,7 +34,7 @@ namespace TodoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ErrorSender]
-        public IActionResult Create([FromForm(Name = "CreateCategoryModel")] CreateCategoryViewModel? model)
+        public IActionResult Create(CreateCategoryViewModel? model)
         {
             if (ModelState.Valid(model, _unitOfWork))
                 return Ok(model!.NewCategoryName);

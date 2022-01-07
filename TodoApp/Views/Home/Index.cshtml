@@ -9,6 +9,10 @@
     <partial name="../Partials/Category.cshtml" model="@category" />
 }
 
+<partial name="../Partials/CreateCategoryForm.cshtml" model="@Model.CreateCategoryModel" />
+
+@*
+
 <button>Create New Category</button>
 <form method="post" asp-action="Create" asp-controller="Category">
     <input asp-for="CreateCategoryModel.NewCategoryHasError" type="hidden" />
@@ -19,3 +23,4 @@
     <input asp-for="CreateCategoryModel.UserId" type="hidden" />
     <input type="submit" value="Create" />
 </form>
+*@

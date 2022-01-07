@@ -1,0 +1,17 @@
+﻿@model CreateCategoryViewModel
+
+<button>Create New Category</button>
+<form method="post" asp-action="Create" asp-controller="Category">
+    <input asp-for="NewCategoryHasError" type="hidden" />
+    <input asp-for="UserId" type="hidden" />
+    <input asp-for="BaseCategoryId" type="hidden" />
+    <input asp-for="FromHome" type="hidden" />
+
+    <label asp-for="NewCategoryName"></label>
+    <input asp-for="NewCategoryName" />
+    <span asp-validation-for="NewCategoryName"></span>
+    <input type="submit" value="Create" />
+</form>
+
+
+

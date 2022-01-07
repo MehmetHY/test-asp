@@ -27,7 +27,13 @@ namespace TodoApp.ViewModels.Factories
 
             var categories = _unitOfWork.CategoryRepo.GetOfCategory(categoryId);
             var todos = _unitOfWork.TodoRepo.GetOfCategory(categoryId);
-            var createCategoryModel = new CreateCategoryViewModel { UserId = userId };
+
+            var createCategoryModel = new CreateCategoryViewModel
+            {
+                UserId = userId,
+                BaseCategoryId = categoryId,
+                FromHome = false
+            };
             
             var model = new CategoryViewModel
                 (

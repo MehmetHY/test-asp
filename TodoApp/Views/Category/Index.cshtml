@@ -20,6 +20,9 @@ else
     <partial name="../Partials/Category.cshtml" model="@category" />
 }
 
+<partial name="../Partials/CreateCategoryForm.cshtml" model="@Model.CreateCategoryModel" />
+@*
+
 <button>Create New Category</button>
 <form method="post" asp-action="Create">
     <input asp-for="CreateCategoryModel.NewCategoryHasError" type="hidden" />
@@ -31,6 +34,7 @@ else
     <input asp-for="CreateCategoryModel.BaseCategoryId" type="hidden" value="@Model.Category.Id" />
     <input type="submit" value="Create" />
 </form>
+*@
 
 
 @foreach (var todo in @Model.Todos)
