@@ -36,6 +36,7 @@ namespace TodoApp.Controllers
         [ErrorSender]
         public IActionResult Create(CreateCategoryViewModel? model)
         {
+            // todo: remove user id from model and put here
             if (ModelState.Valid(model, _unitOfWork))
             {
                 var category = model!.ToCategoryModel();
@@ -46,6 +47,23 @@ namespace TodoApp.Controllers
             return model!.FromHome ? 
                 RedirectToAction("Index", "Home") :
                 RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(DeleteCategoryViewModel? model)
+        {
+            var userId = this.GetCurrentAccountId();
+
+            if (_unitOfWork.CategoryRepo.UserHasCategory(userId, model.CategoryId))
+            {
+                _unitOfWork.CategoryRepo.Remove(model.CategoryId);
+                _unitOfWork.SaveChanges();
+            }
+
+            return model.FromHome ?
+                RedirectToAction("Index", "Home") :
+                RedirectToAction(nameof(Index), new { categoryId = model.CategoryId });
         }
     }
 }
