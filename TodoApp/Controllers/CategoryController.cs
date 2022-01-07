@@ -68,5 +68,20 @@ namespace TodoApp.Controllers
                 RedirectToAction("Index", "Home") :
                 RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(UpdateCategoryViewModel? model)
+        {
+            if (ModelState.Valid(model, _unitOfWork))
+            {
+                _unitOfWork.CategoryRepo.Update(model!.Category);
+                _unitOfWork.SaveChanges();
+            }
+
+            return model.FromHome ?
+                RedirectToAction("Index", "Home") :
+                RedirectToAction(nameof(Index), new { categoryId = model.Category.Id });
+        }
     }
 }
