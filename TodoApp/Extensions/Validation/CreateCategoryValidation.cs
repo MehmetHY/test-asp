@@ -35,8 +35,6 @@ namespace TodoApp.Extensions.Validation
                 return false;
             }
 
-
-
             return true;
         }
     }

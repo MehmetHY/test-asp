@@ -37,7 +37,11 @@ namespace TodoApp.Controllers
         public IActionResult Create(CreateCategoryViewModel? model)
         {
             if (ModelState.Valid(model, _unitOfWork))
-                _unitOfWork.CategoryRepo.Add(model!.Category);
+            {
+                var category = model!.ToCategoryModel();
+                _unitOfWork.CategoryRepo.Add(category);
+                _unitOfWork.SaveChanges();
+            }
 
             return model!.FromHome ? 
                 RedirectToAction("Index", "Home") :
