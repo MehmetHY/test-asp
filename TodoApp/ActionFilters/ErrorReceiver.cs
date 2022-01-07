@@ -12,7 +12,7 @@ namespace TodoApp.ActionFilters
             var controller = context.Controller as Controller;
             var modelState = controller?.ViewData.ModelState;
 
-            if (modelState != null)
+            if (modelState == null)
                 return;
 
             Dictionary<string, string>? errorDictionary;
@@ -23,11 +23,13 @@ namespace TodoApp.ActionFilters
             errorDictionary = controller.TempData[nameof(errorDictionary)]
                 as Dictionary<string, string>;
 
-            if (errorDictionary == null || errorDictionary.Count > 0)
+            if (errorDictionary == null || errorDictionary.Count < 1)
                 return;
 
             foreach (var item in errorDictionary)
                 modelState!.AddModelError(item.Key, item.Value);
+
+            controller.TempData.Remove(nameof(errorDictionary));
         }
     }
 }

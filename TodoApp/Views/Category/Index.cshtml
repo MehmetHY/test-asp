@@ -21,6 +21,16 @@ else
 }
 
 <button>Create New Category</button>
+<form method="post" asp-action="Create">
+    <input asp-for="CreateCategoryModel.NewCategoryHasError" type="hidden" />
+    <input asp-for="CreateCategoryModel.FromHome" type="hidden" value="@false" />
+    <label asp-for="CreateCategoryModel.NewCategoryName"></label>
+    <input asp-for="CreateCategoryModel.NewCategoryName" />
+    <span asp-validation-for="CreateCategoryModel.NewCategoryName"></span>
+    <input asp-for="CreateCategoryModel.UserId" type="hidden" />
+    <input asp-for="CreateCategoryModel.BaseCategoryId" type="hidden" value="@Model.Category.Id" />
+    <input type="submit" value="Create" />
+</form>
 
 
 @foreach (var todo in @Model.Todos)

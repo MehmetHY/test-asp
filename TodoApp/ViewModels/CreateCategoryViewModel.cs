@@ -12,5 +12,7 @@ namespace TodoApp.ViewModels
         public string? NewCategoryName { get; set; }
         public bool NewCategoryHasError { get; set; } = false;
         public int? UserId { get; set; }
+        public int? BaseCategoryId { get; set; }
+        public bool FromHome { get; set; } = true;
     }
 }

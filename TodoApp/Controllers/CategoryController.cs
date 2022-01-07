@@ -21,6 +21,7 @@ namespace TodoApp.Controllers
             _unitOfWork = appService.UnitOfWork;
         }
 
+        [ErrorReceiver]
         public IActionResult Index(int? categoryId)
         {
             var userId = this.GetCurrentAccountId();
@@ -31,15 +32,16 @@ namespace TodoApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCategory([FromForm] HomeViewModel? model)
+        [ValidateAntiForgeryToken]
+        [ErrorSender]
+        public IActionResult Create([FromForm(Name = "CreateCategoryModel")] CreateCategoryViewModel? model)
         {
-            if (model == null)
-                return RedirectToAction("Index", "Home");
+            if (ModelState.Valid(model, _unitOfWork))
+                return Ok(model!.NewCategoryName);
 
-            if (ModelState.Valid(model.CreateCategoryModel, _unitOfWork))
-                return Ok(model.CreateCategoryModel.NewCategoryName);
-
-            return View(nameof(Index), model);
+            return model!.FromHome ? 
+                RedirectToAction("Index", "Home") :
+                RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
         }
     }
 }

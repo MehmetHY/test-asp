@@ -71,5 +71,19 @@ namespace TodoData.Repository
 
             return result;
         }
+
+        public bool NameExistsInCategory(int? baseCategoryId, string? name)
+        {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(baseCategoryId), baseCategoryId },
+                { nameof(name), name },
+            };
+
+            var sp = new StoredProcedureModel(typeof(CategoryModel), nameof(NameExistsInCategory), parameters);
+            var result = _spCaller.GetValue<bool>(sp);
+
+            return result;
+        }
     }
 }
