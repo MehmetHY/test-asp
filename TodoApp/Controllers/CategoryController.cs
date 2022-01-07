@@ -53,6 +53,9 @@ namespace TodoApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(DeleteCategoryViewModel? model)
         {
+            if (model == null)
+                return RedirectToAction("Index", "Home");
+
             var userId = this.GetCurrentAccountId();
 
             if (_unitOfWork.CategoryRepo.UserHasCategory(userId, model.CategoryId))
