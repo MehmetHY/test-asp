@@ -49,9 +49,7 @@ namespace TodoApp.Controllers
                 RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Delete(DeleteCategoryViewModel? model)
+        public IActionResult Delete([FromQuery(Name = "deleteModel")] DeleteCategoryViewModel? model)
         {
             if (model == null)
                 return RedirectToAction("Index", "Home");
@@ -66,7 +64,7 @@ namespace TodoApp.Controllers
 
             return model.FromHome ?
                 RedirectToAction("Index", "Home") :
-                RedirectToAction(nameof(Index), new { categoryId = model.CategoryId });
+                RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
         }
     }
 }
