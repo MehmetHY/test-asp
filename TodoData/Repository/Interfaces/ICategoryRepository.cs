@@ -11,5 +11,6 @@ namespace TodoData.Repository
         CategoryModel? GetByName(int? userId, string? categoryName);
         bool NameExists(int? userId, string? name);
         bool NameExistsInCategory(int? baseCategoryId, string? name);
+        void Update(CategoryModel? model);
     }
 }

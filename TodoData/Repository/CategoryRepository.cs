@@ -85,5 +85,21 @@ namespace TodoData.Repository
 
             return result;
         }
+
+        public void Update(CategoryModel? model)
+        {
+            if (model == null || model.Id == null)
+                return;
+
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(model.Id), model.Id },
+                { nameof(model.Name), model.Name }
+            };
+
+            var sp = new StoredProcedureModel(typeof(CategoryModel), nameof(Update), parameters);
+
+            _spCaller.Execute(sp);
+        }
     }
 }

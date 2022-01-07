@@ -44,7 +44,7 @@ namespace TodoApp.Controllers
                 _unitOfWork.SaveChanges();
             }
 
-            return model!.FromHome ? 
+            return model?.FromHome ?? true ? 
                 RedirectToAction("Index", "Home") :
                 RedirectToAction(nameof(Index), new { categoryId = model.BaseCategoryId });
         }
@@ -71,7 +71,7 @@ namespace TodoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(UpdateCategoryViewModel? model)
+        public IActionResult Update([FromForm(Name = "updateModel")] UpdateCategoryViewModel? model)
         {
             if (ModelState.Valid(model, _unitOfWork))
             {
@@ -79,9 +79,9 @@ namespace TodoApp.Controllers
                 _unitOfWork.SaveChanges();
             }
 
-            return model.FromHome ?
+            return model?.FromHome ?? true ?
                 RedirectToAction("Index", "Home") :
-                RedirectToAction(nameof(Index), new { categoryId = model.Category.Id });
+                RedirectToAction(nameof(Index), new { categoryId = model.Category?.BaseCategoryId });
         }
     }
 }
