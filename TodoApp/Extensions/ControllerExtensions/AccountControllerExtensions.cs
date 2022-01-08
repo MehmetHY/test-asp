@@ -16,5 +16,15 @@ namespace TodoApp.Extensions.ControllerExtensions
 
             return controller.RedirectToAction("Index", "Home");
         }
+        
+        public static IActionResult ProceedToSignup(this AccountController controller, SignupViewModel? model)
+        {
+            if (!controller.ModelState.Valid(model, controller.UnitOfWork))
+                return controller.View(model);
+
+            controller.SignUp(model!, controller.UnitOfWork);
+
+            return controller.RedirectToAction("Index", "Home");
+        }
     }
 }

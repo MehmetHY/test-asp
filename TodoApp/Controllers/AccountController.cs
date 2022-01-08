@@ -25,14 +25,7 @@ namespace TodoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Signup(SignupViewModel? model)
-        {
-            if (!ModelState.Valid(model, UnitOfWork))
-                return View(model);
-
-            this.SignUp(model!, UnitOfWork);
-            return RedirectToAction("Index", "Home");
-        }
+        public IActionResult Signup(SignupViewModel? model) => this.ProceedToSignup(model);
 
         public IActionResult Logout()
         {
