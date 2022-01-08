@@ -4,7 +4,16 @@
 }
 
 <h1>@Model.Category.Name</h1>
-
+@if (Model.Category.BaseCategoryId != null)
+{
+    <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model.Category.BaseCategoryId">
+        Back
+    </a>
+}
+else
+{
+    <a asp-action="Index" asp-controller="Home">Back</a>
+}
 
 @foreach (var category in Model.Categories)
 {
