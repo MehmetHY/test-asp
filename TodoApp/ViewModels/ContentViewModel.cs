@@ -1,4 +1,5 @@
 ﻿using TodoApp.Controllers;
+using TodoData.UnitOfWork;
 using TodoModels.Models;
 
 namespace TodoApp.ViewModels
@@ -14,11 +15,11 @@ namespace TodoApp.ViewModels
 
         public static class Factory
         {
-            public static ContentViewModel Create(ContentController controller, int? id)
+            public static ContentViewModel Create(UnitOfWork unitOfWork, int? id)
             {
-                var category = controller.UnitOfWork.CategoryRepo.Get(id);
-                var categories = controller.UnitOfWork.CategoryRepo.GetOfCategory(id);
-                var todos = controller.UnitOfWork.TodoRepo.GetOfCategory(id);
+                var category = unitOfWork.CategoryRepo.Get(id);
+                var categories = unitOfWork.CategoryRepo.GetOfCategory(id);
+                var todos = unitOfWork.TodoRepo.GetOfCategory(id);
 
                 var model = new ContentViewModel()
                 {

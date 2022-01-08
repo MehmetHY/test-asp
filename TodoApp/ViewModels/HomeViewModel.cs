@@ -1,22 +1,27 @@
-﻿using TodoModels.Models;
+﻿using TodoData.UnitOfWork;
+using TodoModels.Models;
 
 namespace TodoApp.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<CategoryModel> Categories { get; }
+        public IEnumerable<CategoryModel> Categories { get; private set; } = new List<CategoryModel>();
 
-        public CreateCategoryViewModel CreateCategoryModel { get; set; } = new();
+        public CategoryViewModel CategoryViewModel { get; set; } = new();
 
-        public HomeViewModel
-            (
-                IEnumerable<CategoryModel> categories,
-                CreateCategoryViewModel createCategoryModel
-            )
+        public static class Factory
         {
-            Categories = categories;
-            CreateCategoryModel = createCategoryModel;
-        }
+            public static HomeViewModel Create(UnitOfWork unitOfWork, int? userId)
+            {
+                var categories = unitOfWork.CategoryRepo.GetOfUser(userId);
 
+                var model = new HomeViewModel
+                {
+                    Categories = categories
+                };
+
+                return model;
+            }
+        }
     }
 }
