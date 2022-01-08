@@ -1,38 +1,5 @@
-﻿@model CategoryModel
+﻿@model CategoryViewModel
 
 <div>
-
-    <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model.Id">
-        @Model!.Name
-    </a>
-    @{
-        UpdateCategoryViewModel updateModel = new UpdateCategoryViewModel
-            {
-                Category = @Model,
-                FromHome = (bool)@ViewBag.FromHome
-            };
-
-        DeleteCategoryViewModel deleteModel = new DeleteCategoryViewModel
-            {
-                CategoryId = @Model.Id!.Value,
-                BaseCategoryId = @Model.BaseCategoryId,
-                FromHome = (bool)@ViewBag.FromHome
-            };
-    }
-    <form method="post" asp-action="Update" asp-controller="Category">
-        <input asp-for="@updateModel.Category.Id" hidden />
-        <input asp-for="@updateModel.Category.Name" />
-        <input asp-for="@updateModel.Category.UserId" hidden />
-        <input asp-for="@updateModel.Category.BaseCategoryId" hidden />
-        <input asp-for="@updateModel.FromHome" />
-        <input type="submit" value="Update" />
-    </form>
-
-    <form method="post" asp-action="Delete" asp-controller="Category" >
-        <input asp-for="@deleteModel.CategoryId" hidden />
-        <input asp-for="@deleteModel.BaseCategoryId" hidden />
-        <input asp-for="@deleteModel.FromHome" hidden />
-        <input type="submit" value="Delete" />
-    </form>
-
+    <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model."></a>
 </div>

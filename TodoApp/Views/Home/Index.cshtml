@@ -2,11 +2,17 @@
 
 @{
     ViewData["Title"] = "Home";
-    ViewBag.FromHome = true;
 }
+
+<h1>Home</h1>
 
 @foreach (var category in @Model!.Categories)
 {
-    <partial name="../Partials/Category.cshtml" model="@category" />
+    Model.CategoryViewModel.UpdateCategoryViewModel.Import(category);
+    Model.CategoryViewModel.DeleteCategoryViewModel.Import(category);
+
+    <partial name="../Partials/Category.cshtml" model="@Model.CategoryViewModel" />
 }
-<partial name="../Partials/CreateCategoryForm.cshtml" model="@Model.CreateCategoryModel" />
+
+<partial name="../Partials/CreateCategoryForm.cshtml" model="@Model.CategoryViewModel.CreateCategoryViewModel" />
+

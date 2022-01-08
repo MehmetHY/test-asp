@@ -2,12 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using TodoApp.ModelBinders;
 
-namespace TodoApp.ViewModels
+namespace TodoApp.ViewModels.Category
 {
-    public class UpdateCategoryViewModel
+    public class CreateCategoryViewModel
     {
-        public int? Id { get; set; }
-
         [DataType(DataType.Text)]
         [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!")]
         [ModelBinder(typeof(TrimModelBinder))]
