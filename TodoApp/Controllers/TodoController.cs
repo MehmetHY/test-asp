@@ -7,9 +7,7 @@ namespace TodoApp.Controllers
 {
     public class TodoController : DataController
     {
-        public TodoController(AppService service) : base(service)
-        {
-        }
+        public TodoController(AppService service) : base(service) {}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -25,9 +23,12 @@ namespace TodoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ErrorSender]
         public IActionResult Delete(TodoViewModel model) =>
             this.ProceedToDeleteTodo(model);
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(TodoViewModel model, bool moveUp = true) =>
+            this.ProceedToChangeTodoIndex(model, moveUp);
     }
 }

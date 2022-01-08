@@ -9,7 +9,7 @@ namespace TodoApp.ViewModels
     {
         public int? Id { get; set; }
         [DataType(DataType.Text)]
-        [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!")]
+        [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!", MinimumLength = 4)]
         [ModelBinder(typeof(TrimModelBinder))]
         public string? Name { get; set; }
         public int? UserId { get; set; }
