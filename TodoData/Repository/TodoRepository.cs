@@ -52,13 +52,14 @@ namespace TodoData.Repository
 
             var parameters = new Dictionary<string, object?>
             {
+                { nameof(model.Id), model.Id },
                 { nameof(model.Title), model.Title },
                 { nameof(model.Description), model.Description },
                 { nameof(model.State), model.State },
                 { nameof(model.Index), model.Index }
             };
             
-            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetOfUser), parameters);
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(Update), parameters);
 
             _spCaller.Execute(sp);
         }

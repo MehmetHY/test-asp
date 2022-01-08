@@ -1,65 +1,65 @@
 ﻿@model TodoViewModel
+@{
+    int? todoErrorId = (int?)TempData["TodoErrorId"];
+}
 
 <div style="display: flex; flex-direction: column; gap: 1rem; margin: 2rem; border: 2px solid red;">
-<div style="display: flex; flex-direction: row;">
+    <div style="display: flex; flex-direction: row;">
 
-    <form style="display: flex; flex-direction: row;" method="post" asp-action="ChangeState" asp-controller="Todo" >
-        <input asp-for="Id" hidden />
-        <input asp-for="Title" hidden />
-        <input asp-for="Description" hidden />
-        <input asp-for="CategoryId" hidden />
-        <input asp-for="UserId" hidden />
-        <input asp-for="State" hidden />
-        <input asp-for="Index" hidden />
-        <input type="submit" value="@Model!.State" />
-    </form>
+        <form style="display: flex; flex-direction: row;" method="post" asp-action="ChangeState" asp-controller="Todo">
+            <input asp-for="Id" hidden />
+            <input asp-for="Title" hidden />
+            <input asp-for="Description" hidden />
+            <input asp-for="CategoryId" hidden />
+            <input asp-for="UserId" hidden />
+            <input asp-for="State" hidden />
+            <input asp-for="Index" hidden />
+            <input type="submit" value="@Model!.State" />
+        </form>
 
-    <p>@Model.Title</p>
-    <p>@Model.Description</p>
+        <p>@Model.Title</p>
+        <p>@Model.Description</p>
 
-    <form style="display: flex; flex-direction: row;" method="post" asp-action="Move" asp-controller="Todo" >
-        <input asp-for="Id" hidden />
-        <input asp-for="Title" hidden />
-        <input asp-for="Description" hidden />
-        <input asp-for="CategoryId" hidden />
-        <input asp-for="UserId" hidden />
-        <input asp-for="State" hidden />
-        <input asp-for="Index" hidden />
-        <input name="moveUp" value="@true" hidden />
-        <input type="submit" value="Up" />
-    </form>
+        <form style="display: flex; flex-direction: row;" method="post" asp-action="Move" asp-controller="Todo">
+            <input asp-for="Id" hidden />
+            <input asp-for="Title" hidden />
+            <input asp-for="Description" hidden />
+            <input asp-for="CategoryId" hidden />
+            <input asp-for="UserId" hidden />
+            <input asp-for="State" hidden />
+            <input asp-for="Index" hidden />
+            <input name="moveUp" value="@true" hidden />
+            <input type="submit" value="Up" />
+        </form>
 
-     <form style="display: flex; flex-direction: row;" method="post" asp-action="Move" asp-controller="Todo" >
-        <input asp-for="Id" hidden />
-        <input asp-for="Title" hidden />
-        <input asp-for="Description" hidden />
-        <input asp-for="CategoryId" hidden />
-        <input asp-for="UserId" hidden />
-        <input asp-for="State" hidden />
-        <input asp-for="Index" hidden />
-        <input name="moveUp" value="@false" hidden />
-        <input type="submit" value="Down" />
-    </form>
+        <form style="display: flex; flex-direction: row;" method="post" asp-action="Move" asp-controller="Todo">
+            <input asp-for="Id" hidden />
+            <input asp-for="Title" hidden />
+            <input asp-for="Description" hidden />
+            <input asp-for="CategoryId" hidden />
+            <input asp-for="UserId" hidden />
+            <input asp-for="State" hidden />
+            <input asp-for="Index" hidden />
+            <input name="moveUp" value="@false" hidden />
+            <input type="submit" value="Down" />
+        </form>
 
-     <form style="display: flex; flex-direction: row;" method="post" asp-action="Delete" asp-controller="Todo" >
-        <input asp-for="Id" hidden />
-        <input asp-for="Title" hidden />
-        <input asp-for="Description" hidden />
-        <input asp-for="CategoryId" hidden />
-        <input asp-for="UserId" hidden />
-        <input asp-for="State" hidden />
-        <input asp-for="Index" hidden />
-        <input type="submit" value="Delete" />
-    </form>
-    
-</div>
-    
-    <form style="display: flex; flex-direction: row;" method="post" asp-action="Update" asp-controller="Todo" >
+        <form style="display: flex; flex-direction: row;" method="post" asp-action="Delete" asp-controller="Todo">
+            <input asp-for="Id" hidden />
+            <input asp-for="Title" hidden />
+            <input asp-for="Description" hidden />
+            <input asp-for="CategoryId" hidden />
+            <input asp-for="UserId" hidden />
+            <input asp-for="State" hidden />
+            <input asp-for="Index" hidden />
+            <input type="submit" value="Delete" />
+        </form>
+
+    </div>
+
+    <form style="display: flex; flex-direction: row;" method="post" asp-action="Update" asp-controller="Todo">
         <input asp-for="Id" hidden />
         <input asp-for="Title" />
-        @{
-            int? todoErrorId = (int?)TempData["TodoErrorId"];
-        }
         @if (todoErrorId == Model.Id && TempData["CreateTodoFailed"] == null)
         {
             <span asp-validation-for="Title"></span>
