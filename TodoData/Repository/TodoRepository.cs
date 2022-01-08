@@ -7,8 +7,45 @@ namespace TodoData.Repository
 {
     public class TodoRepository : Repository<TodoModel>, ITodoRepository
     {
-        public TodoRepository(IProcedureCaller pc) : base(pc)
+        public TodoRepository(IProcedureCaller pc) : base(pc) {}
+
+        public TodoModel? GetByIndex(int? index, int? categoryId, int? userId)
         {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(index), index },
+                { nameof(categoryId), categoryId },
+                { nameof(userId), userId }
+            };
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetByIndex), parameters);
+            var result = _spCaller.GetRow<TodoModel>(sp);
+            return result;
+        }
+
+        public TodoModel? GetUpperNeighbour(int? index, int? categoryId, int? userId)
+        {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(index), index },
+                { nameof(categoryId), categoryId },
+                { nameof(userId), userId }
+            };
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetUpperNeighbour), parameters);
+            var result = _spCaller.GetRow<TodoModel>(sp);
+            return result;
+        }
+
+        public TodoModel? GetLowerNeighbour(int? index, int? categoryId, int? userId)
+        {
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(index), index },
+                { nameof(categoryId), categoryId },
+                { nameof(userId), userId }
+            };
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetLowerNeighbour), parameters);
+            var result = _spCaller.GetRow<TodoModel>(sp);
+            return result;
         }
 
         public IEnumerable<TodoModel> GetOfCategory(int? categoryId)

@@ -57,7 +57,7 @@ namespace TodoApp.Extensions.ControllerExtensions
 
             return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
-        
+
         public static IActionResult ProceedToChangeTodoState(this TodoController controller, TodoViewModel model)
         {
             model.State = ++model.State > 3 ? 1 : model.State;
@@ -65,7 +65,22 @@ namespace TodoApp.Extensions.ControllerExtensions
         }
         public static IActionResult ProceedToMoveTodo(this TodoController controller, TodoViewModel model, bool moveUp)
         {
-            // TODO move todo
+            var userId = controller.GetCurrentAccountId();
+
+            var targetModel = moveUp ?
+                controller.UnitOfWork.TodoRepo.GetUpperNeighbour(model.Index, model.CategoryId, userId) :
+                controller.UnitOfWork.TodoRepo.GetLowerNeighbour(model.Index, model.CategoryId, userId);
+
+            if (targetModel == null)
+                return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+
+            var tempIndex = targetModel.Index;
+            targetModel.Index = model.Index;
+            model.Index = tempIndex;
+
+            controller.UnitOfWork.TodoRepo.Update(targetModel);
+            controller.UnitOfWork.TodoRepo.Update(model.Export());
+
             return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
     }
