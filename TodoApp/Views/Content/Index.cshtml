@@ -1,34 +1,15 @@
 ﻿@model ContentViewModel
 @{
-    ViewData["Title"] = @Model!.Category.Name;
-    ViewBag.FromHome = false;
+    ViewData["Title"] = Model!.Category!.Name;
 }
 
 <h1>@Model.Category.Name</h1>
 
-@if (@Model.Parent == null)
+
+@foreach (var category in Model.Categories)
 {
-    <a asp-action="Index" asp-controller="Home">
-        <p>Back</p>
-    </a>
-}
-else
-{
-    <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model.Parent.Id" >
-        <p>Back</p>
-    </a>
+    Model.CategoryViewModel.Import(category, false);
+    <partial name="../Partials/Category.cshtml" model="Model.CategoryViewModel" />
 }
 
-@foreach (var category in @Model.Categories)
-{
-    <partial name="../Partials/Category.cshtml" model="@category" />
-}
-
-<partial name="../Partials/CreateCategoryForm.cshtml" model="@Model.CreateCategoryModel" />
-
-@foreach (var todo in @Model.Todos)
-{
-    <partial name="../Partials/Todo.cshtml" model="@todo" />
-}
-
-<button>Create New Todo</button>
+<partial name="../Partials/CreateCategoryForm.cshtml" model="Model.CategoryViewModel" />

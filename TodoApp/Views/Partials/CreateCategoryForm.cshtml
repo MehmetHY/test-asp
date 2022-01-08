@@ -7,7 +7,7 @@
     <input asp-for="FromHome" type="hidden" />
 
     <label asp-for="Name"></label>
-    <input asp-for="Name" />
+    <input asp-for="Name" value="" />
     @{
         bool? hasError = (bool?)TempData["CreateCategoryFailed"];
     }

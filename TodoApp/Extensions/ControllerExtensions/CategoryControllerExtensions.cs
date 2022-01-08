@@ -25,7 +25,7 @@ namespace TodoApp.Extensions.ControllerExtensions
 
             return model.FromHome ?
                 controller.RedirectToAction("Index", "Home") :
-                controller.RedirectToAction("Index", "Content", new { categoryId = model.Id });
+                controller.RedirectToAction("Index", "Content", new { categoryId = model.BaseCategoryId });
         }
     }
 }

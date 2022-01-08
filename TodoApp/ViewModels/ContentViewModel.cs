@@ -22,6 +22,7 @@ namespace TodoApp.ViewModels
 
                 var categoryViewModel = new CategoryViewModel
                 {
+                    BaseCategoryId = categoryId,
                     FromHome = false
                 };
 

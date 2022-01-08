@@ -6,6 +6,7 @@ using TodoApp.ViewModels;
 
 namespace TodoApp.Controllers
 {
+    [AuthUserFilter]
     public class CategoryController : DataController
     {
         public CategoryController(AppService service) : base(service) {}
@@ -13,23 +14,23 @@ namespace TodoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ErrorSender]
-        public IActionResult Create(CategoryViewModel? model) => 
+        public IActionResult Create([FromForm] CategoryViewModel model) => 
             this.ProceedToCreateCategory(model);
         
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ErrorSender]
-        public IActionResult Update(CategoryViewModel? model)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[ErrorSender]
+        //public IActionResult Update(CategoryViewModel? model)
+        //{
 
-        }
+        //}
         
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ErrorSender]
-        public IActionResult Delete(CategoryViewModel? model)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[ErrorSender]
+        //public IActionResult Delete(CategoryViewModel? model)
+        //{
 
-        }
+        //}
     }
 }
