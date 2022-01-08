@@ -1,5 +1,4 @@
-﻿using TodoApp.Controllers;
-using TodoData.UnitOfWork;
+﻿using TodoData.UnitOfWork;
 using TodoModels.Models;
 
 namespace TodoApp.ViewModels
@@ -21,11 +20,17 @@ namespace TodoApp.ViewModels
                 var categories = unitOfWork.CategoryRepo.GetOfCategory(id);
                 var todos = unitOfWork.TodoRepo.GetOfCategory(id);
 
+                var categoryViewModel = new CategoryViewModel
+                {
+                    FromHome = false
+                };
+
                 var model = new ContentViewModel()
                 {
                     Category = category,
                     Categories = categories,
-                    Todos = todos
+                    Todos = todos,
+                    CategoryViewModel = categoryViewModel
                 };
 
                 return model;
