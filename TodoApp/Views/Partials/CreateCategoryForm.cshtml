@@ -1,17 +1,21 @@
-﻿@model CreateCategoryViewModel
+﻿@model CategoryViewModel
 
-<button>Create New Category</button>
+<div>
+
 <form method="post" asp-action="Create" asp-controller="Category">
-    <input asp-for="NewCategoryHasError" type="hidden" />
-    <input asp-for="UserId" type="hidden" />
     <input asp-for="BaseCategoryId" type="hidden" />
     <input asp-for="FromHome" type="hidden" />
 
-    <label asp-for="NewCategoryName"></label>
-    <input asp-for="NewCategoryName" />
-    <span asp-validation-for="NewCategoryName"></span>
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    @{
+        bool? hasError = (bool?)TempData["CreateCategoryFailed"];
+    }
+    @if (hasError != null && hasError.Value)
+    {
+        <span asp-validation-for="Name"></span>
+    }
     <input type="submit" value="Create" />
 </form>
 
-
-
+</div>
