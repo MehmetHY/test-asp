@@ -16,7 +16,7 @@ namespace TodoApp.Controllers
         [ErrorSender]
         public IActionResult Create([FromForm] CategoryViewModel model) => 
             this.ProceedToCreateCategory(model);
-        
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //[ErrorSender]
@@ -24,13 +24,11 @@ namespace TodoApp.Controllers
         //{
 
         //}
-        
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ErrorSender]
-        //public IActionResult Delete(CategoryViewModel? model)
-        //{
 
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ErrorSender]
+        public IActionResult Delete(CategoryViewModel? model) => 
+            this.ProceedToDeleteCategory(model)
     }
 }
