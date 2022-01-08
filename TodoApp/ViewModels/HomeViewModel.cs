@@ -1,5 +1,4 @@
-﻿using TodoApp.ViewModels.Category;
-using TodoData.UnitOfWork;
+﻿using TodoData.UnitOfWork;
 using TodoModels.Models;
 
 namespace TodoApp.ViewModels
@@ -15,12 +14,10 @@ namespace TodoApp.ViewModels
             public static HomeViewModel Create(UnitOfWork unitOfWork, int? userId)
             {
                 var categories = unitOfWork.CategoryRepo.GetOfUser(userId);
-                var categoryView = CategoryViewModel.Factory.Create(userId, true);
 
                 var model = new HomeViewModel
                 {
-                    Categories = categories,
-                    CategoryViewModel = categoryView
+                    Categories = categories
                 };
 
                 return model;
