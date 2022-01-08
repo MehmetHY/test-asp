@@ -71,6 +71,7 @@ namespace TodoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ErrorSender]
         public IActionResult Update([FromForm(Name = "updateModel")] UpdateCategoryViewModel? model)
         {
             if (ModelState.Valid(model, _unitOfWork))
