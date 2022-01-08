@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Controllers;
+using TodoApp.Extensions.Validation;
 using TodoApp.ViewModels;
 
 namespace TodoApp.Extensions.ControllerExtensions
@@ -13,6 +14,10 @@ namespace TodoApp.Extensions.ControllerExtensions
                 var category = model!.Export();
                 controller.UnitOfWork.CategoryRepo.Add(category);
                 controller.UnitOfWork.SaveChanges();
+            }
+            else
+            {
+                controller.TempData["CreateCategoryFailed"] = true;
             }
 
             return model?.FromHome ?? true ?
