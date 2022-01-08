@@ -9,11 +9,11 @@ using TodoApp.Extensions.Validation;
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
-    public class CategoryController : DataController
+    public class ContentController : DataController
     {
         private readonly CategoryViewModelFactory _cvmFactory;
 
-        public CategoryController(AppService service) : base(service)
+        public ContentController(AppService service) : base(service)
         {
             _cvmFactory = service.CategoryViewModelFactory;
         }

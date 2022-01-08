@@ -10,7 +10,7 @@ namespace TodoApp.ViewModels.Factories
             _unitOfWork = unitOfWork;
         }
 
-        public CategoryViewModel? CreateCategoryViewModel(int? userId, int? categoryId)
+        public ContentViewModel? CreateCategoryViewModel(int? userId, int? categoryId)
         {
             if (categoryId == null || userId == null)
                 return null;
@@ -35,7 +35,7 @@ namespace TodoApp.ViewModels.Factories
                 FromHome = false
             };
             
-            var model = new CategoryViewModel
+            var model = new ContentViewModel
                 (
                     category, 
                     parent,

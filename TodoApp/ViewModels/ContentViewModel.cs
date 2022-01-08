@@ -2,7 +2,7 @@
 
 namespace TodoApp.ViewModels
 {
-    public class CategoryViewModel
+    public class ContentViewModel
     {
         public CategoryModel Category { get; }
         public CategoryModel? Parent { get; }
@@ -11,7 +11,7 @@ namespace TodoApp.ViewModels
 
         public CreateCategoryViewModel CreateCategoryModel { get; set; }
 
-        public CategoryViewModel
+        public ContentViewModel
             (
                 CategoryModel category, 
                 CategoryModel? parent, 

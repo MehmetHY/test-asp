@@ -1,4 +1,4 @@
-﻿@model CategoryViewModel
+﻿@model ContentViewModel
 @{
     ViewData["Title"] = @Model!.Category.Name;
     ViewBag.FromHome = false;
@@ -14,7 +14,7 @@
 }
 else
 {
-    <a asp-action="Index" asp-controller="Category" asp-route-categoryId="@Model.Parent.Id" >
+    <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model.Parent.Id" >
         <p>Back</p>
     </a>
 }
