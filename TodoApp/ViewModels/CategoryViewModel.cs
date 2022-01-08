@@ -27,5 +27,18 @@ namespace TodoApp.ViewModels
             BaseCategoryId = model.BaseCategoryId;
             FromHome = fromHome;
         }
+
+        public CategoryModel Export()
+        {
+            var model = new CategoryModel
+            {
+                Id = Id,
+                Name = Name,
+                UserId = UserId,
+                BaseCategoryId = BaseCategoryId
+            };
+
+            return model;
+        }
     }
 }

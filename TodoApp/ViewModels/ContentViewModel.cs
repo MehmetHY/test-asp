@@ -14,11 +14,11 @@ namespace TodoApp.ViewModels
 
         public static class Factory
         {
-            public static ContentViewModel Create(UnitOfWork unitOfWork, int? id)
+            public static ContentViewModel Create(UnitOfWork unitOfWork, int? categoryId)
             {
-                var category = unitOfWork.CategoryRepo.Get(id);
-                var categories = unitOfWork.CategoryRepo.GetOfCategory(id);
-                var todos = unitOfWork.TodoRepo.GetOfCategory(id);
+                var category = unitOfWork.CategoryRepo.Get(categoryId);
+                var categories = unitOfWork.CategoryRepo.GetOfCategory(categoryId);
+                var todos = unitOfWork.TodoRepo.GetOfCategory(categoryId);
 
                 var categoryViewModel = new CategoryViewModel
                 {
