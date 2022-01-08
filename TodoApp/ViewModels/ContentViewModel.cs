@@ -8,10 +8,6 @@ namespace TodoApp.ViewModels
         public CategoryModel? Category { get; set; }
         public IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         public IEnumerable<TodoModel> Todos { get; set; } = new List<TodoModel>();
-
-        public CreateCategoryViewModel CreateCategoryViewModel { get; set; } = new();
-        public UpdateCategoryViewModel UpdateCategoryViewModel { get; set; } = new();
-        public DeleteCategoryViewModel DeleteCategoryViewModel { get; set; } = new();
         
         public CreateTodoViewModel CreateTodoViewModel { get; set; } = new();
         public UpdateTodoViewModel UpdateTodoViewModel { get; set; } = new();
