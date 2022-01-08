@@ -8,7 +8,8 @@ namespace TodoApp.Extensions.ControllerExtensions
         public static IActionResult ProceedToHomePage(this HomeController controller)
         {
             var userId = controller.GetCurrentAccountId();
-            var model = controller.HomeViewModelFactory.CreateHomeViewModel(userId);
+            var model = controller.Service.HomeViewModelFactory.CreateHomeViewModel(userId);
+
             return controller.View(model);
         }
     }
