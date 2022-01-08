@@ -33,7 +33,7 @@ namespace TodoApp.Extensions.ControllerExtensions
             var userId = controller.GetCurrentAccountId();
             model.UserId = userId;
 
-            if (controller.ModelState.IsDeleteCategoryValid(model, controller.UnitOfWork))
+            if (model.IsDeleteCategoryValid(controller.UnitOfWork))
             {
                 controller.UnitOfWork.CategoryRepo.Remove(model.Id);
                 controller.UnitOfWork.SaveChanges();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TodoApp.Controllers;
 using TodoApp.ViewModels;
 using TodoData.UnitOfWork;
 
@@ -18,7 +19,7 @@ namespace TodoApp.Extensions.Validation
                 return false;
             }
 
-            bool nameExists = false;
+            bool nameExists;
 
             if (model.BaseCategoryId != null)
             {
@@ -39,6 +40,17 @@ namespace TodoApp.Extensions.Validation
 
                 return false;
             }
+
+            return true;
+        }
+
+        public static bool IsDeleteCategoryValid(this CategoryViewModel? model, UnitOfWork unitOfWork)
+        {
+            if (model == null)
+                return false;
+
+            if (!unitOfWork.CategoryRepo.UserHasCategory(model.UserId, model.Id))
+                return false;
 
             return true;
         }

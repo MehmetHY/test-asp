@@ -28,7 +28,7 @@ namespace TodoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ErrorSender]
-        public IActionResult Delete(CategoryViewModel? model) => 
-            this.ProceedToDeleteCategory(model)
+        public IActionResult Delete(CategoryViewModel model) =>
+            this.ProceedToDeleteCategory(model);
     }
 }
