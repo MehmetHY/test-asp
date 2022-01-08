@@ -47,8 +47,20 @@ namespace TodoData.Repository
 
         public void Update(TodoModel? model)
         {
-            // TODO update todo
-            throw new NotImplementedException();
+            if (model == null)
+                return;
+
+            var parameters = new Dictionary<string, object?>
+            {
+                { nameof(model.Title), model.Title },
+                { nameof(model.Description), model.Description },
+                { nameof(model.State), model.State },
+                { nameof(model.Index), model.Index }
+            };
+            
+            var sp = new StoredProcedureModel(typeof(TodoModel), nameof(GetOfUser), parameters);
+
+            _spCaller.Execute(sp);
         }
     }
 }
