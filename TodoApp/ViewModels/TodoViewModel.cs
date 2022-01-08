@@ -27,6 +27,7 @@ namespace TodoApp.ViewModels
 
         public void Import(TodoModel model)
         {
+            Id = model.Id;
             Title = model.Title;
             Description = model.Description ?? string.Empty;
             CategoryId = model.CategoryId;
@@ -39,6 +40,7 @@ namespace TodoApp.ViewModels
         {
             var model = new TodoModel
             {
+                Id = Id,
                 Title = Title,
                 Description = Description,
                 CategoryId = CategoryId,
