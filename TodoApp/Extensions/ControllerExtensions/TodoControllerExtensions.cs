@@ -63,5 +63,18 @@ namespace TodoApp.Extensions.ControllerExtensions
                 controller.RedirectToAction("Index", "Home") :
                 controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
+        
+        public static IActionResult ProceedToChangeTodoState(this TodoController controller, TodoViewModel model)
+        {
+            model.State = ((model.State + 1) % 3) + 1;
+            return controller.ProceedToUpdateTodo(model);
+        }
+        public static IActionResult ProceedToMoveTodo(this TodoController controller, TodoViewModel model, bool moveUp)
+        {
+            // TODO move todo
+            return model.FromHome ?
+               controller.RedirectToAction("Index", "Home") :
+               controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+        }
     }
 }

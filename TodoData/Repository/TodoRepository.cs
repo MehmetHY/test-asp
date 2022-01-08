@@ -44,5 +44,11 @@ namespace TodoData.Repository
             var result = _spCaller.GetRows<TodoModel>(sp);
             return result;
         }
+
+        public void Update(TodoModel? model)
+        {
+            // TODO update todo
+            throw new NotImplementedException();
+        }
     }
 }
