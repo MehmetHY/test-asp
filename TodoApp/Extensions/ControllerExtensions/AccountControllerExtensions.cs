@@ -26,5 +26,11 @@ namespace TodoApp.Extensions.ControllerExtensions
 
             return controller.RedirectToAction("Index", "Home");
         }
+        
+        public static IActionResult ProceedToLogout(this AccountController controller)
+        {
+            controller.Signout();
+            return controller.RedirectToAction("SignIn");
+        }
     }
 }

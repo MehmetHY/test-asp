@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.ViewModels;
 using TodoApp.ActionFilters;
-using TodoApp.Extensions.Validation;
-using TodoApp.Extensions;
 using TodoApp.Services;
 using TodoApp.Extensions.ControllerExtensions;
 
@@ -27,10 +25,6 @@ namespace TodoApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Signup(SignupViewModel? model) => this.ProceedToSignup(model);
 
-        public IActionResult Logout()
-        {
-            this.Signout();
-            return RedirectToAction(nameof(SignIn));
-        }
+        public IActionResult Logout() => this.ProceedToLogout();
     }
 }
