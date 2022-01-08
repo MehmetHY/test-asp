@@ -44,6 +44,12 @@ namespace TodoApp.Extensions.Validation
             return true;
         }
 
+        public static bool IsUpdateCategoryValid(this ModelStateDictionary modelState, CategoryViewModel? model, UnitOfWork unitOfWork)
+        {
+            var result = modelState.IsCreateCategoryValid(model, unitOfWork);
+            return result;
+        }
+
         public static bool IsDeleteCategoryValid(this CategoryViewModel? model, UnitOfWork unitOfWork)
         {
             if (model == null)
