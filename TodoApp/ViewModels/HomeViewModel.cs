@@ -14,6 +14,7 @@ namespace TodoApp.ViewModels
             public static HomeViewModel Create(UnitOfWork unitOfWork, int? userId)
             {
                 var categories = unitOfWork.CategoryRepo.GetOfUser(userId);
+                var categoryView = CategoryModel.Factory.Create(true);
 
                 var model = new HomeViewModel
                 {

@@ -6,7 +6,7 @@ using TodoApp.Extensions.ControllerExtensions;
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
-    public class HomeController : BaseController
+    public class HomeController : DataController
     {
         public HomeController(AppService service) : base(service) {}
 
