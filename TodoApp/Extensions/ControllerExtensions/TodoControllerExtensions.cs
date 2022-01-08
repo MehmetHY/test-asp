@@ -60,7 +60,7 @@ namespace TodoApp.Extensions.ControllerExtensions
         
         public static IActionResult ProceedToChangeTodoState(this TodoController controller, TodoViewModel model)
         {
-            model.State = ((model.State + 1) % 3) + 1;
+            model.State = ++model.State > 3 ? 1 : model.State;
             return controller.ProceedToUpdateTodo(model);
         }
         public static IActionResult ProceedToMoveTodo(this TodoController controller, TodoViewModel model, bool moveUp)
