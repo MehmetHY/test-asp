@@ -1,6 +1,6 @@
 ﻿using TodoModels.Models;
 
-namespace TodoApp.ViewModels.Category
+namespace TodoApp.ViewModels
 {
     public class CategoryViewModel
     {
