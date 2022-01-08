@@ -1,0 +1,26 @@
+﻿@model TodoViewModel
+
+<form method="post" asp-action="Create" asp-controller="Todo">
+    <input asp-for="Id" hidden />
+    @{
+        bool? failed = (bool?)TempData["CreateTodoFailed"];
+    }
+    <label asp-for="Title"></label>
+    <input asp-for="Title" value="" />
+    @if (failed != null && failed.Value)
+    {
+        <span asp-validation-for="Title"></span>
+    }
+    <label asp-for="Description"></label>
+    <input asp-for="Description" value="" />
+    @if (failed != null && failed.Value)
+    {
+        <span asp-validation-for="Description"></span>
+    }
+    <input asp-for="CategoryId" hidden />
+    <input asp-for="UserId" hidden />
+    <input asp-for="State" hidden />
+    <input asp-for="Index" hidden />
+    <input type="submit" value="Create" />
+
+</form>

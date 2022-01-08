@@ -10,12 +10,10 @@ namespace TodoApp.ViewModels
         public int? Id { get; set; }
 
         [DataType(DataType.Text)]
-        [StringLength(64, ErrorMessage = "Title must be between 4 - 64 characters!", MinimumLength = 4)]
         [ModelBinder(typeof(TrimModelBinder))]
         public string? Title { get; set; }
 
         [DataType(DataType.Text)]
-        [StringLength(1000, ErrorMessage = "Description cannot be longer than 1000 characters!")]
         [ModelBinder(typeof(TrimModelBinder))]
         public string Description { get; set; } = string.Empty;
 
@@ -26,8 +24,6 @@ namespace TodoApp.ViewModels
         public int State { get; set; } = 1;
 
         public int? Index { get; set; }
-
-        public bool FromHome { get; set; } = true;
 
         public void Import(TodoModel model)
         {

@@ -34,7 +34,7 @@ namespace TodoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Move(TodoViewModel model, bool moveUp = true) =>
+        public IActionResult Move(TodoViewModel model, [FromForm(Name = "moveUp")] bool moveUp = true) =>
             this.ProceedToMoveTodo(model, moveUp);
     }
 }

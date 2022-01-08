@@ -23,9 +23,7 @@ namespace TodoApp.Extensions.ControllerExtensions
                 controller.TempData["CreateTodoFailed"] = true;
             }
 
-            return model.FromHome ?
-                controller.RedirectToAction("Index", "Home") :
-                controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+            return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
 
         public static IActionResult ProceedToUpdateTodo(this TodoController controller, TodoViewModel model)
@@ -43,9 +41,7 @@ namespace TodoApp.Extensions.ControllerExtensions
                 controller.TempData["TodoErrorId"] = model.Id;
             }
 
-            return model.FromHome ?
-                controller.RedirectToAction("Index", "Home") :
-                controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+            return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
 
         public static IActionResult ProceedToDeleteTodo(this TodoController controller, TodoViewModel model)
@@ -59,9 +55,7 @@ namespace TodoApp.Extensions.ControllerExtensions
                 controller.UnitOfWork.SaveChanges();
             }
 
-            return model.FromHome ?
-                controller.RedirectToAction("Index", "Home") :
-                controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+            return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
         
         public static IActionResult ProceedToChangeTodoState(this TodoController controller, TodoViewModel model)
@@ -72,9 +66,7 @@ namespace TodoApp.Extensions.ControllerExtensions
         public static IActionResult ProceedToMoveTodo(this TodoController controller, TodoViewModel model, bool moveUp)
         {
             // TODO move todo
-            return model.FromHome ?
-               controller.RedirectToAction("Index", "Home") :
-               controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
+            return controller.RedirectToAction("Index", "Content", new { categoryId = model.CategoryId });
         }
     }
 }

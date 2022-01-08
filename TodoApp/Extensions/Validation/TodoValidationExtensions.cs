@@ -21,6 +21,19 @@ namespace TodoApp.Extensions.Validation
                 return false;
             }
 
+            if (model.Title.Length > 64)
+            {
+                modelState.AddModelError(nameof(model.Title), "Name cannot be longer than 64 characters!");
+
+                return false;
+            }
+            if (model.Description.Length > 1000)
+            {
+                modelState.AddModelError(nameof(model.Description), "Description cannot be longer than 1000 characters!");
+
+                return false;
+            }
+
             return true;
         }
 

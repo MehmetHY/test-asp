@@ -22,3 +22,11 @@ else
 }
 
 <partial name="../Partials/CreateCategoryForm.cshtml" model="Model.CategoryViewModel" />
+
+@foreach (var todo in Model.Todos)
+{
+    Model.TodoViewModel.Import(todo);
+    <partial name="../Partials/Todo.cshtml" model="Model.TodoViewModel" />
+}
+
+<partial name="../Partials/CreateTodoForm.cshtml" model="Model.TodoViewModel" />
