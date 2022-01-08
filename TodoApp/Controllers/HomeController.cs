@@ -7,13 +7,13 @@ using TodoApp.Extensions;
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly HomeViewModelFactory _homeViewModelFactory;
 
-        public HomeController(AppService appService)
+        public HomeController(AppService service) : base(service)
         {
-            _homeViewModelFactory = appService.HomeViewModelFactory;
+            _homeViewModelFactory = service.HomeViewModelFactory;
         }
 
         [ErrorReceiver]

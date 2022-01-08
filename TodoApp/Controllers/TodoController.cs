@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TodoApp.Services;
 
 namespace TodoApp.Controllers
 {
-    public class TodoController : Controller
+    public class TodoController : BaseController
     {
-        public IActionResult Index()
+        public TodoController(AppService service) : base(service)
         {
-            return View();
         }
     }
 }

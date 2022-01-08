@@ -4,15 +4,16 @@ using TodoApp.ActionFilters;
 using TodoApp.Extensions.Validation;
 using TodoApp.Extensions;
 using TodoData.UnitOfWork;
+using TodoApp.Services;
 
 namespace TodoApp.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UnitOfWork _unitOfWork;
-        public AccountController(UnitOfWork unitOfWork)
+        public AccountController(AppService service) : base(service)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = service.UnitOfWork;
         }
 
         [AvoidRedundantSignFilter]
