@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.ActionFilters;
+using TodoApp.Extensions.ControllerExtensions;
 using TodoApp.Services;
-using TodoApp.ViewModels.Category;
+using TodoApp.ViewModels;
 
 namespace TodoApp.Controllers
 {
@@ -12,10 +13,8 @@ namespace TodoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ErrorSender]
-        public IActionResult Create(CategoryViewModel? model)
-        {
-
-        }
+        public IActionResult Create(CategoryViewModel? model) => 
+            this.ProceedToCreateCategory(model);
         
         [HttpPost]
         [ValidateAntiForgeryToken]

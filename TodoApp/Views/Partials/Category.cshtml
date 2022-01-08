@@ -1,11 +1,14 @@
 ﻿@model CategoryViewModel
 
 <div>
+
     <a asp-action="Index" asp-controller="Content" asp-route-categoryId="@Model.Id">
         @Model!.Name
     </a>
+
     <form method="post" asp-action="Update" asp-controller="Category">
         <input asp-for="Name" />
+
         @{
             int? categoryErrorId = (int?)TempData["CategoryErrorId"];
         }
@@ -19,6 +22,7 @@
         <input asp-for="FromHome" hidden />
         <input type="submit" value="Update" />
     </form>
+
     <form method="post" asp-action="Delete" asp-controller="Category">
         <input asp-for="Id" hidden />
         <input asp-for="FromHome" hidden />
