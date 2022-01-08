@@ -20,7 +20,7 @@ namespace TodoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ErrorSender]
-        public IActionResult Update(CategoryViewModel? model) =>
+        public IActionResult Update(CategoryViewModel model) =>
             this.ProceedToUpdateCategory(model);
 
         [HttpPost]
