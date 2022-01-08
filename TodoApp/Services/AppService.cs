@@ -6,7 +6,7 @@ namespace TodoApp.Services
     public class AppService
     {
         public HomeViewModelFactory HomeViewModelFactory{ get; set; }
-        public CategoryViewModelFactory CategoryViewModelFactory{ get; set; }
+        public ContentViewModelFactory CategoryViewModelFactory{ get; set; }
         public UnitOfWork UnitOfWork { get; set; }
         public AppService(UnitOfWork unitOfWork)
         {

@@ -11,7 +11,7 @@ namespace TodoApp.Controllers
     [AuthUserFilter]
     public class ContentController : DataController
     {
-        private readonly CategoryViewModelFactory _cvmFactory;
+        private readonly ContentViewModelFactory _cvmFactory;
 
         public ContentController(AppService service) : base(service)
         {
