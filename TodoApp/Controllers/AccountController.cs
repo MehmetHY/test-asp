@@ -3,17 +3,14 @@ using TodoApp.ViewModels;
 using TodoApp.ActionFilters;
 using TodoApp.Extensions.Validation;
 using TodoApp.Extensions;
-using TodoData.UnitOfWork;
 using TodoApp.Services;
 
 namespace TodoApp.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : DataController
     {
-        private readonly UnitOfWork _unitOfWork;
         public AccountController(AppService service) : base(service)
         {
-            _unitOfWork = service.UnitOfWork;
         }
 
         [AvoidRedundantSignFilter]
@@ -23,10 +20,10 @@ namespace TodoApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Signin(SigninViewModel? model)
         {
-            if (!ModelState.Valid(model, _unitOfWork))
+            if (!ModelState.Valid(model, UnitOfWork))
                 return View(model);
 
-            this.Signin(model!, _unitOfWork);
+            this.Signin(model!, UnitOfWork);
             return RedirectToAction("Index", "Home");
         }
 
@@ -38,10 +35,10 @@ namespace TodoApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Signup(SignupViewModel? model)
         {
-            if (!ModelState.Valid(model, _unitOfWork))
+            if (!ModelState.Valid(model, UnitOfWork))
                 return View(model);
 
-            this.SignUp(model!, _unitOfWork);
+            this.SignUp(model!, UnitOfWork);
             return RedirectToAction("Index", "Home");
         }
 

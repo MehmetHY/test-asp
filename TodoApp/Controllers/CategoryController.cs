@@ -4,21 +4,18 @@ using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
 using TodoApp.Extensions;
 using TodoApp.ViewModels;
-using TodoData.UnitOfWork;
 using TodoApp.Extensions.Validation;
 
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
-    public class CategoryController : Controller
+    public class CategoryController : DataController
     {
         private readonly CategoryViewModelFactory _cvmFactory;
-        private readonly UnitOfWork _unitOfWork;
 
-        public CategoryController(AppService appService)
+        public CategoryController(AppService service) : base(service)
         {
-            _cvmFactory = appService.CategoryViewModelFactory;
-            _unitOfWork = appService.UnitOfWork;
+            _cvmFactory = service.CategoryViewModelFactory;
         }
 
         [ErrorReceiver]
@@ -37,11 +34,11 @@ namespace TodoApp.Controllers
         public IActionResult Create(CreateCategoryViewModel? model)
         {
             // todo: remove user id from model and put here
-            if (ModelState.Valid(model, _unitOfWork))
+            if (ModelState.Valid(model, UnitOfWork))
             {
                 var category = model!.ToCategoryModel();
-                _unitOfWork.CategoryRepo.Add(category);
-                _unitOfWork.SaveChanges();
+                UnitOfWork.CategoryRepo.Add(category);
+                UnitOfWork.SaveChanges();
             }
 
             return model?.FromHome ?? true ? 
@@ -58,10 +55,10 @@ namespace TodoApp.Controllers
 
             var userId = this.GetCurrentAccountId();
 
-            if (_unitOfWork.CategoryRepo.UserHasCategory(userId, model.CategoryId))
+            if (UnitOfWork.CategoryRepo.UserHasCategory(userId, model.CategoryId))
             {
-                _unitOfWork.CategoryRepo.Remove(model.CategoryId);
-                _unitOfWork.SaveChanges();
+                UnitOfWork.CategoryRepo.Remove(model.CategoryId);
+                UnitOfWork.SaveChanges();
             }
 
             return model.FromHome ?
@@ -74,8 +71,8 @@ namespace TodoApp.Controllers
         [ErrorSender]
         public IActionResult Update([FromForm(Name = "updateModel")] UpdateCategoryViewModel? model)
         {
-            if (ModelState.Valid(model, _unitOfWork))
-                _unitOfWork.CategoryRepo.Update(model!.Category);
+            if (ModelState.Valid(model, UnitOfWork))
+                UnitOfWork.CategoryRepo.Update(model!.Category);
 
             return model?.FromHome ?? true ?
                 RedirectToAction("Index", "Home") :

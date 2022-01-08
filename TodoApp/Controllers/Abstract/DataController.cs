@@ -1,9 +1,9 @@
 ﻿using TodoApp.Services;
 using TodoData.UnitOfWork;
 
-namespace TodoApp.Controllers.Abstract
+namespace TodoApp.Controllers
 {
-    public class DataController : BaseController
+    public abstract class DataController : BaseController
     {
         public UnitOfWork UnitOfWork { get; private set; }
         public DataController(AppService service) : base(service)
