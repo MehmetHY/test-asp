@@ -17,13 +17,11 @@ namespace TodoApp.Controllers
         public IActionResult Create([FromForm] CategoryViewModel model) => 
             this.ProceedToCreateCategory(model);
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ErrorSender]
-        //public IActionResult Update(CategoryViewModel? model)
-        //{
-
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ErrorSender]
+        public IActionResult Update(CategoryViewModel? model) =>
+            this.ProceedToUpdateCategory(model);
 
         [HttpPost]
         [ValidateAntiForgeryToken]

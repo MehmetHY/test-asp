@@ -28,6 +28,26 @@ namespace TodoApp.Extensions.ControllerExtensions
                 controller.RedirectToAction("Index", "Content", new { categoryId = model.BaseCategoryId });
         }
 
+        public static IActionResult ProceedToUpdateCategory(this CategoryController controller, CategoryViewModel model)
+        {
+            var userId = controller.GetCurrentAccountId();
+            model.UserId = userId;
+
+            if (controller.ModelState.IsUpdateCategoryValid(model, controller.UnitOfWork))
+            {
+                var category = model.Export();
+                controller.UnitOfWork.CategoryRepo.Update(category);
+            }
+            else
+            {
+                controller.TempData["CategoryErrorId"] = model.Id;
+            }
+
+            return model.FromHome ?
+                 controller.RedirectToAction("Index", "Home") :
+                controller.RedirectToAction("Index", "Content", new { categoryId = model.BaseCategoryId });
+        }
+
         public static IActionResult ProceedToDeleteCategory(this CategoryController controller, CategoryViewModel model)
         {
             var userId = controller.GetCurrentAccountId();
