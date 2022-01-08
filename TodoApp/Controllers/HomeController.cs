@@ -2,27 +2,21 @@
 using TodoApp.ActionFilters;
 using TodoApp.Services;
 using TodoApp.ViewModels.Factories;
-using TodoApp.Extensions;
+using TodoApp.Extensions.ControllerExtensions;
 
 namespace TodoApp.Controllers
 {
     [AuthUserFilter]
     public class HomeController : BaseController
     {
-        private readonly HomeViewModelFactory _homeViewModelFactory;
+        public HomeViewModelFactory HomeViewModelFactory { get; private set; }
 
         public HomeController(AppService service) : base(service)
         {
-            _homeViewModelFactory = service.HomeViewModelFactory;
+            HomeViewModelFactory = service.HomeViewModelFactory;
         }
 
         [ErrorReceiver]
-        public IActionResult Index()
-        {
-            var userId = this.GetCurrentAccountId();
-            var model = _homeViewModelFactory.CreateHomeViewModel(userId);
-            
-            return View(model);
-        }
+        public IActionResult Index() => this.ProceedToHomePage();
     }
 }
