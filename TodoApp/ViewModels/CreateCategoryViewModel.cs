@@ -6,13 +6,15 @@ namespace TodoApp.ViewModels
 {
     public class CreateCategoryViewModel
     {
-        [ModelBinder(typeof(TrimModelBinder))]
         [DataType(DataType.Text)]
-        [StringLength(64, ErrorMessage = "Category name cannot be longer than 64 characters!")]
-        public string? NewCategoryName { get; set; }
-        public bool NewCategoryHasError { get; set; } = false;
+        [StringLength(64, ErrorMessage = "Name must be between 4 - 64 characters!")]
+        [ModelBinder(typeof(TrimModelBinder))]
+        public string? Name { get; set; }
+        
+        public int? BaseId { get; set; }
+        
         public int? UserId { get; set; }
-        public int? BaseCategoryId { get; set; }
+        
         public bool FromHome { get; set; } = true;
     }
 }
